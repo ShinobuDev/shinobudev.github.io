@@ -207,30 +207,55 @@ dev.local et téléchargez-le depuis curl
     <tr>
       <th scope="row">Les en-têtes de requête</th>
       <th scope="row">Contiennent des informations additionnelles à propos de la ressource à récupérer ou à propos du client qui la demande.</th>
-      <td>:heavy_check_mark:</td>
+      <td><pre class="notranslate">GET /home.html HTTP/1.1
+Host: developer.mozilla.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:50.0) Gecko/20100101 Firefox/50.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Referer: https://developer.mozilla.org/testpage.html
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT
+If-None-Match: "c561c68d0ba92bbeb8b0fff2a9199f722e3a621a"
+Cache-Control: max-age=0
+</pre></td>
     </tr>
     <tr>
       <th scope="row">Les en-têtes de réponse</th>
       <th scope="row">Contiennent des informations supplémentaires au sujet de la réponse (par exemple son emplacement), ou au sujet du serveur qui la fournit.:</th>
-      <td>:heavy_check_mark:</td>
+      <td><pre class="notranslate">200 OK
+Access-Control-Allow-Origin: *
+Connection: Keep-Alive
+Content-Encoding: gzip
+Content-Type: text/html; charset=utf-8
+Date: Mon, 18 Jul 2016 16:06:00 GMT
+Etag: "c561c68d0ba92bbeb8b0f612a9199f722e3a621a"
+Keep-Alive: timeout=5, max=997
+Last-Modified: Mon, 18 Jul 2016 02:36:04 GMT
+Server: Apache
+Set-Cookie: mykey=myvalue; expires=Mon, 17-Jul-2017 16:06:00 GMT; Max-Age=31449600; Path=/; secure
+Transfer-Encoding: chunked
+Vary: Cookie, Accept-Encoding
+X-Backend-Server: developer2.webapp.scl3.mozilla.com
+X-Cache-Info: not cacheable; meta data too large
+X-kuma-revision: 1085259
+x-frame-options: DENY
+</pre></td>
     </tr>
     <tr>
       <th scope="row">Les en-têtes de représentation</th>
       <th scope="row">Contiennent des informations à propos du corps de la ressource, comme son type MIME, ou le type de compression ou d'encodage appliqué.</th>
-      <td>:x:</td>
+      <td><pre class="notranslate">Content-Type: text/html; charset=utf-8
+Content-Type: multipart/form-data; boundary=something
+</pre></td>
     </tr>
     <tr>
       <th scope="row">Les en-têtes de charge utile (payload headers)</th>
       <th scope="row">Contiennent des informations indépendantes de la représentation sur la charge utile, comme la longueur du contenu ou l'encodage utilisé pour le transport.</th>
-      <td>:x:</td>
-    </tr>
-    <tr><th scope="row">En-têtes de bout en bout (end-to-end headers)</th>
-      <th scope="row">Ces en-têtes doivent être transmis au destinataire final du message ; c'est-à-dire le serveur dans le cas d'une requête ou le client dans le cas d'une réponse. Les serveurs mandataires intermédiaires doivent retransmettre les en-têtes de bout en bout sans modification et doivent les mettre en cache.</th>
-      <td>:heavy_check_mark:*</td>
-    </tr>
-    <tr>
-      <th scope="row">En-têtes de point à point (hop-by-hop headers)</th>
-      <th scope="row">Ces en-têtes n'ont de sens que pour une unique connexion de la couche transport et ne doivent pas être retransmis par des serveurs mandataires ou mis en cache. Seuls des en-têtes point à point peuvent être définis avec l'en-tête Connection.</th>
-      <td>:heavy_check_mark:</td>
+      <td><pre class="brush: http notranslate" data-signature="znOkNzBCdCgroWvfjVPWc913ZvtqhhPAyAZB7GvnSfI="><code><span class="token header"><span class="token header-name keyword">Content-Range</span><span class="token punctuation">:</span> <span class="token header-value">&lt;unit&gt; &lt;range-start&gt;-&lt;range-end&gt;/&lt;size&gt;</span></span>
+<span class="token header"><span class="token header-name keyword">Content-Range</span><span class="token punctuation">:</span> <span class="token header-value">&lt;unit&gt; &lt;range-start&gt;-&lt;range-end&gt;/*</span></span>
+<span class="token header"><span class="token header-name keyword">Content-Range</span><span class="token punctuation">:</span> <span class="token header-value">&lt;unit&gt; */&lt;size&gt;</span></span>
+</code></pre></td>
     </tr>
 </table>
