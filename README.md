@@ -182,8 +182,6 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 
 <h1><ins>9 – CURL</ins></h1>
 
-[__Sources__](moi)
-
 - Effectuer une requête GET vers l’url http://dev.local
 
 ![site.png](documents/GET.png)
@@ -199,7 +197,7 @@ dev.local et téléchargez-le depuis curl
 
 <h1><ins>10 – Headers</ins></h1>
 
-[__Sources__]([moi](https://developer.mozilla.org/fr/docs/Web/HTTP/Headers#en-t%C3%AAtes_de_bout_en_bout_))
+[__Sources__](https://developer.mozilla.org/fr/docs/Web/HTTP/Headers#en-t%C3%AAtes_de_bout_en_bout_)
 
 <table>
   <thead>
