@@ -184,6 +184,12 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 
 ![site.png](documents/GET.png)
 
+- Effectuer une requête GET vers l’url http://dev.local/notExisting
 
+![site.png](documents/GET2.png)
 
-![site.png](documents/GET 2.png)
+- Déposer un fichier localement dans le dossier download depuis la racine de votre virtualhost
+dev.local et téléchargez-le depuis curl
+
+![curl](documents/curl.png)
+
