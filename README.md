@@ -9,20 +9,18 @@
 
 - La méthode GET demande une représentation de la ressource spécifiée. Les requêtes GET doivent uniquement être utilisées afin de récupérer des données.
 
-GET /index.html
+<pre class="notranslate">GET /index.html</pre>
 
 <h2>Méthode POST :</h2>
 
 - La méthode POST est utilisée pour envoyer une entité vers la ressource indiquée. Cela entraîne généralement un changement d'état ou des effets de bord sur le serveur.
 
-<html>
-POST / HTTP/1.1
+<pre class="notranslate">POST / HTTP/1.1
 Host: foo.com
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 13
 
-say=Hi&to=Mom
-</html>
+say=Hi&to=Mom</pre>
 
 <h1><ins>2 – Comparaison méthodes</ins></h1>
 
