@@ -198,39 +198,39 @@ dev.local et téléchargez-le depuis curl
 <table>
   <thead>
     <tr>
-      <th scope="col"></th>
-      <th scope="col">GET</th>
-      <th scope="col">POST</th>
+      <th scope="col">en-têtes</th>
+      <th scope="col">explication</th>
+      <th scope="col">illustration</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">La requête a un corps</th>
-      <th scope="row">:x:</th>
+      <th scope="row">Les en-têtes de requête</th>
+      <th scope="row">Contiennent des informations additionnelles à propos de la ressource à récupérer ou à propos du client qui la demande.</th>
       <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <th scope="row">Une réponse de succès a un corps</th>
-      <th scope="row">:heavy_check_mark:</th>
+      <th scope="row">Les en-têtes de réponse</th>
+      <th scope="row">Contiennent des informations supplémentaires au sujet de la réponse (par exemple son emplacement), ou au sujet du serveur qui la fournit.:</th>
       <td>:heavy_check_mark:</td>
     </tr>
     <tr>
-      <th scope="row">Sûre</th>
-      <th scope="row">:heavy_check_mark:</th>
+      <th scope="row">Les en-têtes de représentation</th>
+      <th scope="row">Contiennent des informations à propos du corps de la ressource, comme son type MIME, ou le type de compression ou d'encodage appliqué.</th>
       <td>:x:</td>
     </tr>
     <tr>
-      <th scope="row">Idempotente</th>
-      <th scope="row">:heavy_check_mark:</th>
+      <th scope="row">Les en-têtes de charge utile (payload headers)</th>
+      <th scope="row">Contiennent des informations indépendantes de la représentation sur la charge utile, comme la longueur du contenu ou l'encodage utilisé pour le transport.</th>
       <td>:x:</td>
     </tr>
-    <tr><th scope="row">Peut être mise en cache</th>
-      <th scope="row">:heavy_check_mark:</th>
+    <tr><th scope="row">En-têtes de bout en bout (end-to-end headers)</th>
+      <th scope="row">Ces en-têtes doivent être transmis au destinataire final du message ; c'est-à-dire le serveur dans le cas d'une requête ou le client dans le cas d'une réponse. Les serveurs mandataires intermédiaires doivent retransmettre les en-têtes de bout en bout sans modification et doivent les mettre en cache.</th>
       <td>:heavy_check_mark:*</td>
     </tr>
     <tr>
-      <th scope="row">Autorisée dans les formulaires HTML</th>
-      <th scope="row">:heavy_check_mark:</th>
+      <th scope="row">En-têtes de point à point (hop-by-hop headers)</th>
+      <th scope="row">Ces en-têtes n'ont de sens que pour une unique connexion de la couche transport et ne doivent pas être retransmis par des serveurs mandataires ou mis en cache. Seuls des en-têtes point à point peuvent être définis avec l'en-tête Connection.</th>
       <td>:heavy_check_mark:</td>
     </tr>
 </table>
