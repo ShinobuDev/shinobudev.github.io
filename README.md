@@ -81,4 +81,4 @@ Par exemple, deux des principes de base du HTTP sont qu’une requête ne peut r
 
 <h1><ins>5 – URL</ins></h1>
 
-![](/assets/images/tux.png)
+<a href="https://shadps4.net/](https://www.spreadfamily.fr/glossaire/url"><img src="https://github.com/shadps4-emu/shadPS4/blob/main/.github/shadps4.png](https://cdn.prod.website-files.com/5eeb8b290ae25bce2125fc54/642fca11a8fb4d068243263a_url-definition.webp" width="220"></a>
