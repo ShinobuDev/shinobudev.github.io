@@ -1,4 +1,5 @@
 # bloc1
+# heading text{#identifier cssselector}
 
 [__Sources__](https://developer.mozilla.org/fr/docs/Web/HTTP/Methods)
 
@@ -65,3 +66,19 @@ say=Hi&to=Mom
       <td>:heavy_check_mark:</td>
     </tr>
 </table>
+
+<p>*Seulement si une information de péremption est incluse</p>
+
+<h1><ins>3 -Extensible</ins></h1>
+
+- Sa syntaxe est dite « extensible » car elle permet de définir différents langages avec pour chacun son vocabulaire et sa grammaire.
+
+<h1><ins>4 - Sans état</ins></h1>
+
+- Lorsqu’on dit que HTTP est un protocole sans état, cela signifie que HTTP n’a pas besoin que le serveur conserve des informations sur un client entre deux requêtes. Autrement dit, chaque nouvelle requête peut agir de manière totalement indépendante et n’a pas de lien à priori avec les requêtes précédentes ou suivantes.
+
+Par exemple, deux des principes de base du HTTP sont qu’une requête ne peut récupérer qu’une seule ressource à la fois / n’effectuer qu’une action à la fois et que HTTP est un protocole sans état. 
+
+<h1><ins>5 – URL</ins></h1>
+
+![](/assets/images/tux.png)
