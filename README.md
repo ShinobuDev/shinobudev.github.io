@@ -172,9 +172,9 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 
 - ping dev.local
 
-![image.png](documents/bade9f878d7caf35ddfa45be1fda21c6.png)
+![cmd.png](documents/bade9f878d7caf35ddfa45be1fda21c6.png)
 
-![image.png](documents/6c2ef6a30136240c130e9595aa2df311.png)
+![site.png](documents/6c2ef6a30136240c130e9595aa2df311.png)
 
 <h1><ins>9 – CURL</ins></h1>
 
