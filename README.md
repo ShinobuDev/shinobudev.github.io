@@ -173,3 +173,4 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 
 <h1><ins>9 – CURL</ins></h1>
 
+![image.png]("C:\Users\patal\Downloads\bade9f878d7caf35ddfa45be1fda21c6.png")
