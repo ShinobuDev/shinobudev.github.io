@@ -193,3 +193,44 @@ dev.local et téléchargez-le depuis curl
 
 ![curl](documents/curl.png)
 
+<h1><ins>10 – Headers</ins></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">GET</th>
+      <th scope="col">POST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">La requête a un corps</th>
+      <th scope="row">:x:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+    <tr>
+      <th scope="row">Une réponse de succès a un corps</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+    <tr>
+      <th scope="row">Sûre</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:x:</td>
+    </tr>
+    <tr>
+      <th scope="row">Idempotente</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:x:</td>
+    </tr>
+    <tr><th scope="row">Peut être mise en cache</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:*</td>
+    </tr>
+    <tr>
+      <th scope="row">Autorisée dans les formulaires HTML</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+</table>
