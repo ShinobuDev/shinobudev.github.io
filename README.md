@@ -1,8 +1,9 @@
 # bloc1
 
-<h1>1 - Méthodes GET et POST</h1>
+[__Sources__](https://developer.mozilla.org/fr/docs/Web/HTTP/Methods)
 
-__Source__ : https://developer.mozilla.org/fr/docs/Web/HTTP/Methods
+<h1><ins>1 - Méthodes GET et POST</ins></h1>
+
 
 <h2>Méthode GET :</h2>
 
@@ -23,4 +24,44 @@ Content-Length: 13
 say=Hi&to=Mom
 </html>
 
-<h1>2 – Comparaison méthodes</h1>
+<h1><ins>2 – Comparaison méthodes</ins></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">GET</th>
+      <th scope="col">POST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">La requête a un corps</th>
+      <th scope="row">:x:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+    <tr>
+      <th scope="row">Une réponse de succès a un corps</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+    <tr>
+      <th scope="row">Sûre</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:x:</td>
+    </tr>
+    <tr>
+      <th scope="row">Idempotente</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:x:</td>
+    </tr>
+    <tr><th scope="row">Peut être mise en cache</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:*</td>
+    </tr>
+    <tr>
+      <th scope="row">Autorisée dans les formulaires HTML</th>
+      <th scope="row">:heavy_check_mark:</th>
+      <td>:heavy_check_mark:</td>
+    </tr>
+</table>
