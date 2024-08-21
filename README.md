@@ -170,6 +170,8 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 
 <h1><ins>8 – Installation Apache & configuration</ins></h1>
 
+[__Sources__](https://slamwiki2.kobject.net/web/server#xampp)
+
 - Ping dev.local
 
 ![cmd.png](documents/bade9f878d7caf35ddfa45be1fda21c6.png)
@@ -179,6 +181,8 @@ la négociation menée par l'agent, aussi appelée négociation réactive. Dans 
 ![site.png](documents/6c2ef6a30136240c130e9595aa2df311.png)
 
 <h1><ins>9 – CURL</ins></h1>
+
+[__Sources__](moi)
 
 - Effectuer une requête GET vers l’url http://dev.local
 
@@ -194,6 +198,8 @@ dev.local et téléchargez-le depuis curl
 ![curl](documents/curl.png)
 
 <h1><ins>10 – Headers</ins></h1>
+
+[__Sources__]([moi](https://developer.mozilla.org/fr/docs/Web/HTTP/Headers#en-t%C3%AAtes_de_bout_en_bout_))
 
 <table>
   <thead>
