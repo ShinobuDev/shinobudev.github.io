@@ -151,20 +151,26 @@ Le serveur a rencontré une situation qu'il ne sait pas traiter.
 
 [__Sources et images__](https://developer.mozilla.org/fr/docs/Web/HTTP/Content_negotiation#n%C3%A9gociation_men%C3%A9e_par_lagent)
 
-- Les principes de la négociation de contenu.
+<h3>1 - Les principes de la négociation de contenu.</h3>
 
 Un document donné est défini comme une ressource. Lorsqu'un client souhaite obtenir une ressource, il la demande via une URL. Le serveur utilise alors cette URL pour choisir l'une des variantes disponibles. Chaque variante est appelée une représentation. Le serveur renvoie alors une représentation donnée au client. La ressource, ainsi que chacune de ses représentations, dispose d'une URL spécifique. La négociation de contenu détermine quelle représentation donnée est utilisée lorsque la ressource est demandée. Il existe plusieurs méthodes de négociation entre le client et le serveur.
 
 ![image.png](https://developer.mozilla.org/fr/docs/Web/HTTP/Content_negotiation/httpnego.png)
-
-- Négociation de contenu menée par le serveur
+<h3>2 - Négociation de contenu menée par le serveur</h3>
 
 Lors d'une négociation de contenu menée par le serveur (aussi appelée négociation de contenu proactive), le navigateur (ou tout autre agent utilisateur) envoie plusieurs en-têtes HTTP avec l'URL
 
 ![image.png](https://developer.mozilla.org/fr/docs/Web/HTTP/Content_negotiation/httpnegoserver.png)
 
-- Négociation menée par l'agent.
+<h3>3 - Négociation menée par l'agent.</h3>
 
 la négociation menée par l'agent, aussi appelée négociation réactive. Dans ce cas, le serveur envoie une page contenant les liens vers les différentes ressources alternatives lorsqu'il reçoit une requête ambigüe. Les ressources seront présentées à l'utilisatrice ou à l'utilisateur, qui choisira celle à utiliser.
 
 ![image.png](https://developer.mozilla.org/fr/docs/Web/HTTP/Content_negotiation/httpnego3.png)
+
+<h1><ins>8 – Installation Apache & configuration</ins></h1>
+
+
+<h1><ins>9 – CURL</ins></h1>
+
+![image.png]("C:\Users\patal\Downloads\bade9f878d7caf35ddfa45be1fda21c6.png")
