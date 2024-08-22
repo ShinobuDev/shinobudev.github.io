@@ -84,3 +84,17 @@ footer{
     vertical-align: center;
     text-align: center;
 }
+
+#GitIm{
+    border-radius: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+    transform: translateY(100px);
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+#GitIm:hover {
+    box-shadow: 0 12px 16px 0 #282d32, 0 17px 50px 0 #282d32;
+}
