@@ -1,8 +1,86 @@
 body{
     background-color: #424549;
-    color: white;
+    color: #B9BBBE;
+    text-align: center;
+    background-color: #424549;
+    opacity: 0.8;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #424549 10px ), repeating-linear-gradient( #444cf755, #444cf7 );
+    background-size: 1000px 1000px;
 }
 
-p{
-    color: white;
+h1{
+    text-align:left;
+    border: 3px solid #36393e; padding: 10px; 
+    border-right-width:2px;
+    border-radius: 12px;
+    width: 200;
+    display:inline
+}
+
+.button{
+    border-radius: 12px;
+    padding: 16px 75px;
+    background-color: #424549;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    display: inline-block;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    width: 210px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    transform: translateX(150%);
+    vert
+}
+
+.span:visited { 
+    text-decoration: none; 
+    color: #B9BBBE; 
+   }
+
+.button:hover {
+    box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+}
+
+.button:active {
+    background-color: #7289da;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.button:hover span {
+    padding-right: 25px;
+}
+  
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+img {
+    width: 20px;
+    margin: 0 5px -2px 0;
+}
+
+zero-md {
+    display: block;
+    color: #36393e;
 }
