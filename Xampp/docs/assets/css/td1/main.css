@@ -51,9 +51,9 @@ h1 {
     border-color: #282d32;
     margin-top: 20px;
     position: fixed;
-    bottom: 0; /* Move to the bottom of the page */
+    bottom: 0; 
     left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
+    transform: translateX(-50%); 
 }
 
 #button:hover {
@@ -135,7 +135,6 @@ footer {
     cursor: pointer;
     border-color: #282d32;
     transform: translateY(150px);
-    /* Adjust this value to position it correctly under #GitIm */
     z-index: 2;
 }
 
@@ -187,7 +186,6 @@ footer {
     cursor: pointer;
     border-color: #282d32;
     transform: translateY(150px);
-    /* Adjust this value to position it correctly under #GitIm */
     z-index: 2;
 }
 
