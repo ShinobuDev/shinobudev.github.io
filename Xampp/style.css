@@ -102,18 +102,15 @@ footer {
 }
 
 #button2 {
-    border-radius: 12px;
-    padding: 100px 100px;
+    border-radius: 12px;;
     background-color: #282d32;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     display: inline-block;
-    color: #f0f9ff;
-    text-align: center;
-    font-size: 20px;
-    padding: 20px;
-    width: 210px;
+    color: #f0f9ff;;
+    font-size: 20px;;
+    width: 20px;
     transition: all 0.5s;
     cursor: pointer;
-    border-color: #282d32;
-    margin-top: 20px;
+    border-color: #282d32;;
+    transform: translateY(500%);
 }
