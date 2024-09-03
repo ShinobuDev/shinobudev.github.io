@@ -40,3 +40,9 @@
 - Laisser par défaut
 
 <h2>Confirmer/h2>
+
+<h1><ins>Installer Debian</ins></h1>
+
+Choisir la langue (Français):
+
+![langue]()
