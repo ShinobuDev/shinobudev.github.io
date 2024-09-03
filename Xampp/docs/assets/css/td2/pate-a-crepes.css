@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin: 100px;
+    padding: 0;
+}
+
+#gras {
+    font-weight: bold;
+}
+
+#orange{
+    color: orangered;
+    font-weight: bold;
+}
+
+#gris{
+    border-radius: 0;
+  color: rgba(0,0,0,.9);
+  padding: 6px !important;
+  line-height: 125%;
+  background-color: #f5f5f5;
+}
+
+#rec{
+    font-size:25px;
+}
+
+#marg{
+    margin-left: 4rem;
+}
