@@ -5,8 +5,6 @@ body {
     background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #424549 10px), repeating-linear-gradient(#444cf755, #444cf7);
     background-size: 2000px 1000px;
     font: bold 20px 'Roboto', sans-serif;
-    border-radius: 0;
-    background-color: #f5f5f5;
 }
 
 h1 {
@@ -29,7 +27,7 @@ h2{
 }
 
 li{
-    border-radius: 0;
+  border-radius: 0;
   color: rgba(0,0,0,.9);
   padding: 6px !important;
   line-height: 125%;
