@@ -79,12 +79,56 @@ de votre dossier personnel :
 
        ```# rm -Rf test```
 
+  <h1><ins>AP n°2</ins></h1>
 
+<h2>Exo 1: déterminez les commandes permettant de réaliser les actions suivantes</h2>
 
-    
+- Déterminer le répertoire par défaut dans la hiérarchie des répertoires ?
+  
+  ```# cd```
+- Y a t-il des fichiers, des répertoires dans ce répertoire ?
+  
+  ```Oui il y a des fichiers et répertoire caché```
+- Entrer du texte dans un fichier nommé « Mon_fichier » que vous avez créé au
+préalable.
 
+  ```# nano Mon_fichier```
+- Lister le contenu de « Mon_fichier ».
+  
+  ```# cat Mon_fichier```
+- Lister le répertoire courant.
+  
+  ```# cd && ls```
+- Lister les répertoires /bin et /dev.
+  
+  ```# cd /bin && ls && cd /dev && ls```
+- Créer sous votre répertoire deux sous-répertoires : « Source » et « Data ».
+  
+  ```# mkdir Source Data```
+- Se positionner sous « Source ».
+  
+  ```# cd Source```
+- Listez le répertoire courant.
+  
+  ```# cd && ls```
+- Revenir sous le répertoire de départ et détruire « Source ».
+  
+  ```# cd && rm -d Source```
+- Créer un deuxième fichier nommé « Mon_fichier_2 ».
+  
+  ```# touch Mon_fichier_2``` 
+- Copier chaque fichier en nom_de_fichier.old.
+  
+  ```# cp Mon_fichier Mon_fichier.old && cp Mon_fichier2 Mon_fichier2.old```
+- Créer un répertoire « Old ».
 
+  ```# mkdir Old```
+- Déplacer les fichiers avec l'extension .old vers le répertoire « Old ».
 
+  ```mv *.old Old```
+- Effacer tous les fichiers crées dans Old sans effacer le répertoire Old.
+
+  ```# rm Old/*```
 
 
 
