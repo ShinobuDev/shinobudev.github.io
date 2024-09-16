@@ -98,10 +98,10 @@ préalable.
   ```# cat Mon_fichier```
 - Lister le répertoire courant.
   
-  ```# cd && ls```
+  ```# ls```
 - Lister les répertoires /bin et /dev.
   
-  ```# cd /bin && ls && cd /dev && ls```
+  ```# ls /bin /dev```
 - Créer sous votre répertoire deux sous-répertoires : « Source » et « Data ».
   
   ```# mkdir Source Data```
@@ -110,10 +110,10 @@ préalable.
   ```# cd Source```
 - Listez le répertoire courant.
   
-  ```# cd && ls```
+  ```# ls```
 - Revenir sous le répertoire de départ et détruire « Source ».
   
-  ```# cd && rm -d Source```
+  ```# rm -d ../Source```
 - Créer un deuxième fichier nommé « Mon_fichier_2 ».
   
   ```# touch Mon_fichier_2``` 
@@ -130,9 +130,42 @@ préalable.
 
   ```# rm Old/*```
 
+<h2>Exo 2: exploration de l'arborescence Linux : ls, cp, mv, rm, cd, pwd, mkdir, rmdir</h2>
 
+- Indiquez par une commande dans quel répertoire vous vous trouvez.
 
+  ```# pwd```
+- Allez dans le répertoire /usr/share/doc, puis vérifiez le chemin de votre répertoire
+courant.
 
+  ```# cd /usr/share/doc && pwd```
+- Remonter dans le répertoire parent puis vérifier.
+
+  ```# cd .. && pwd*```
+- Allez dans votre répertoire personnel sans taper son chemin.
+
+  ```# cd```
+- Retournez dans votre répertoire précédent sans taper son chemin.
+
+  ```# cd ..```
+- Retourner dans votre répertoire personnel et listez les fichiers présents.
+
+  ```# ls ~```
+- Listez maintenant tous les fichiers (même ceux cachés).
+
+  ```# ls -a```
+- Affichez de façon détaillée le contenu du répertoire /usr sans changer le répertoire de
+travail.
+
+  ```# ls -l -a /usr```
+- Affichez l'arborescence de fichiers contenue dans /var sans changer le répertoire de
+travail.
+
+  ```# ls -l -a /var```
+- Affichez de façon détaillée le contenu du répertoire /var/log en classant les fichiers du
+plus vieux au plus récent.
+
+  ```# ls -l -a /var/log```
 
 
 
