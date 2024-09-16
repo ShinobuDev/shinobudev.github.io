@@ -404,7 +404,7 @@ A la suite de l’exercice précédent vous vous trouvez dans le répertoire eva
    ```# ls -R -l -a ../../..```
 - Allez dans la corbeille. Pouvez-vous récupérer les répertoires et fichiers que vous avez
   supprimés avec les commandes précédentes.
-   - ??????
+   - pas de corbeille ????
   
    ```# ```
 - Allez dans votre dossier personnel, supprimer le répertoire envinfo1
