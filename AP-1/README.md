@@ -301,22 +301,117 @@ racine puis à partir de votre répertoire personnel) et le chemin relatif.
 - Créez les fichiers vides controle1.txt, controle2.txt et controle3.txt en une seule
   commande.
 
-   ```# cd ../../home```
+   ```# touch controle1.txt controle2.txt controle3.txt```
 - Créez le répertoire controles
 
-   ```# cd ../../home```
+   ```# mkdir controles```
 - Renommez le répertoire controles en examens
 
-   ```# cd ../../home```
+   ```# mv controles examens```
 - Déplacer les fichiers controle1.txt, controle2.txt et controle3.txt dans le répertoire
   examens.
 
-   ```# cd ../../home```
+   ```# mv controle1.txt controle2.txt controle3.txt examens/```
 - Déplacez-vous dans le répertoire examens puis copiez tous les fichiers dans le répertoire
   qcm1.
 
-   ```# cd ../../home```
+   ```#  cp controle1.txt controle2.txt controle3.txt ../qcm1```
 - Déplacez-vous dans le répertoire qcm1 et créez en une seule commande les fichiers
   question1.txt, question2.txt et question3.txt.
 
-   ```# cd ../../home```
+   ```# touch question1.txt question2.txt question3.txt```
+
+<h2>Exo 4: suppression de répertoires et de fichiers</h2>
+
+À la suite de l’exercice précédent, vous vous trouvez dans le répertoire qcm1.
+
+- Essayer d’effacer le répertoire examens à l’aide de la commande rmdir. Pourquoi cela ne
+  fonctionne pas ?
+
+   ```# rmdir ../examens```
+
+   - car le répertoire n'est pas vide
+- Supprimer le répertoire qcm2.
+
+   ```# rmdir ../qcm2```
+- Déplacer-vous dans le dossier envinfo1. En une seule commande. Dupliquez le répertoire
+  qcm1 et tout ce qu’il contient sous le nom qcm2.
+
+   ```# cd ../..```
+   ```# cp -r eval/qcm1 eval/qcm2```
+- Déplacez-vous dans le répertoire qcm2.
+
+   ```# cd eval/qcm2```
+- Supprimez tous les fichiers dont le nom commence par controle (utilisez pour cela un «
+  joker »).
+
+   ```# rm controle*.txt```
+- Créez le fichier caché reponses.txt.
+
+   ```# touch .reponses.txt```
+- Affichez l’ensemble des fichiers du répertoire qcm2 avec les fichiers cachés et en format
+  long.
+
+   ```# ld -l -a```
+- Supprimez le dossier qcm1 et tout ce qu’il contient en une seule commande.
+
+   ```# rm -Rf ../qcm1```
+
+<h2>Exo5: joker</h2>
+
+A la suite de l’exercice précédent vous vous trouvez dans le répertoire qcm2.
+- Dans le répertoire eval créez les fichiers suivants : qcm1.txt Qcm2.doc QCm3.txt et
+  QCM4.doc.
+
+   ```# touch ../qcm1.txt ../Qcm2.doc ../QCm3.txt ../QCM4.doc```
+- Affichez tous les fichiers de eval dont le nom commence par la lettre Q majuscule.
+
+   ```# tree ../Q*```
+- Affichez les noms de fichiers donc la troisième lettre est un M majuscule.
+
+   ```# tree ../**M*```
+- Affichez les noms de fichiers qui se terminent par l’extension .txt
+
+   ```# tree ../*.txt```
+- Supprimez tous les fichiers que vous avez créés lors de la première question de cet
+  exercice en essayant de spécifier le moins d’arguments possible.
+
+   ```# rm ../*.*```
+
+<h2>Exo 6: pour conclure, on utilise un peu tout</h2>
+
+A la suite de l’exercice précédent vous vous trouvez dans le répertoire eval.
+- Déplacez-vous dans le répertoire qcm2.
+
+   ```# cd qcm2```
+- Sans changer de répertoire, affichez uniquement les dossiers td4, td5, td6, td7 et td8. Pour
+  réaliser cette opération, utilisez une seule commande et un seul argument
+
+   ```# tree  ../../td*```
+- Supprimez les dossiers td4, td5, td6, td7 et td8. Pour réaliser cette suppression, utilisez la
+  commande précédente sans la retaper.
+
+   ```# rm -d  ../../td*```
+- A l’aide de la commande ls, affichez l’ensemble des répertoires, des sous-répertoires et des
+  fichiers du répertoire envinfo1 (sans changer de répertoire courant). Cet affichage devra être
+  réalisé en format long et avec les fichiers cachés. Vous utiliserez un chemin absolu et un
+  chemin relatif. Utilisez aussi la commande tree pour visualiser l’arborescence.
+   - chemin absolu
+  
+   ```# ls -R -l -a /root/envinfo1```
+   - chemin relatif
+  
+   ```# ls -R -l -a ../../..```
+- Allez dans la corbeille. Pouvez-vous récupérer les répertoires et fichiers que vous avez
+  supprimés avec les commandes précédentes.
+   - ??????
+  
+   ```# ```
+- Allez dans votre dossier personnel, supprimer le répertoire envinfo1
+
+   ```cd ~/```
+   ```rm -r envinfo1/```
+
+
+
+
