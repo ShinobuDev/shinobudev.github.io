@@ -66,18 +66,18 @@ plus récent
 
 ```# mv [DOSSIER]... [RENOMMAGE]...```
 
-- 5. Copiez un fichier de votre choix du répertoire /bin dans le répertoire test/tp1
+- Copiez un fichier de votre choix du répertoire /bin dans le répertoire test/tp1
 de votre dossier personnel :
   - 1. En faisant la copie depuis le répertoire /bin
 
        ```# cp exemple /home/test/tp1```
   - 2. En faisant la copie depuis le répertoire test/tp1
 
-      ```# cp /bin/exemple```
+       ```# cp /bin/exemple```
   - 3. Effacez à l'aide d'une seule commande les répertoires test/tp1 et
     test/tp2
 
-      ```# rm -Rf test```
+       ```# rm -Rf test```
 
 
 
