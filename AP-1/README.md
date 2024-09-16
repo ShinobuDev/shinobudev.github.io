@@ -167,5 +167,59 @@ plus vieux au plus récent.
 
   ```# ls -l -a /var/log```
 
+<h2>Exo 3: répertoires et consultation de fichiers</h2>
+
+- Allez dans votre répertoire personnel.
+
+   ```# cd```
+- Créez un répertoire portant le nom de CommandesLinux.
+
+   ```# mkdir CommandesLinux```
+- Allez dans le dossier CommandesLinux et créez les répertoires suivants
+
+   ```# mkdir CommandesLinux/Code CommandesLinux/Code/couleur CommandesLinux/Code/forme CommandesLinux/Code/couleur/froide CommandesLinux/Code/forme/angle CommandesLinux/Code/forme/courbe```
+- Copiez le fichier /etc/services dans votre répertoire CommandesLinux.
+
+   ```# cp /etc/services CommandesLinux```
+- À qui appartient le fichier que vous venez de copier ? Quelle est sa date de sa dernière
+modification ?
+   - il appartient a ```root```
+   - sa dernière date de modification est ```16 sept. 14.00```
+- Créez les fichiers ne contenant aucune donnée et dont les noms sont les suivants :
+rond.txt, triangle.txt, carre.txt, rectangle.txt, vert.txt et bleu.txt
+
+   ```touch rond.txt triangle.txt carre.txt rectangle.txt vert.txt bleu.txt```
+- Déplacez le fichier rond.txt dans le répertoire courbe et les fichiers triangle.txt,
+carre.txt, rectangle.txt dans le répertoire angle.
+
+   ```# mv rond.txt Code/forme/courbe```
+   ```# mv triangle.txt rectangle.txt carre.txt Code/forme/angle ```
+  
+- Déplacez les fichiers vert.txt et bleu.txt dans le répertoire froide.
+
+   ```# mv vert.txt bleu.txt Code/couleur/froide```
+- Allez dans le répertoire couleur et afficher le contenu du répertoire de façon récursive.
+
+   ```# cd Code/couleur/froide```
+   ```# ls -R```
+- Copier le répertoire sous le nom chaude. Est-ce possible ? Comment ?
+
+   ```# cd ..```
+   ```# cp -r froide chaude```
+- Allez dans le répertoire chaude et renommez le fichier bleu.txt en rouge.txt et vert.txt
+en jaune.txt.
+
+   ```# cd chaude```
+   ```# mv bleu.txt rouge.txt && mv vert.txt jaune.txt```
+- Remontez dans le répertoire CommandesLinux et renommez le répertoire couleur en
+peinture. Est-il besoin de spécifier une option particulière à la commande mv.
+
+   ```# cd ../../..```
+   ```#  mv Code/couleur Code/peinture```
+   - non il n'y a pas besoin d'option particulière pour la commande mv dans ce cas là 
+- Listez la totalité de l'arborescence contenue dans le répertoire CommandeLinux.
+
+   ```# ls -lR```
+
 
 
