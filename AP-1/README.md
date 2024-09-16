@@ -221,5 +221,102 @@ peinture. Est-il besoin de spécifier une option particulière à la commande mv
 
    ```# ls -lR```
 
+<h1><ins>AP n°3</ins></h1>
 
+<h2>Exo 1: répertoires</h2>
 
+- Dans votre répertoire personnel, créez un dossier envinfo1.
+
+   ```# mkdir envinfo1```
+- En restant dans votre répertoire personnel, créez les dossiers td3 td4 td5 dans le répertoire
+  envinfo1 à l’aide d’une seule commande.
+
+   ```# mkdir envinfo1/td3 envinfo1/td4 envinfo1/td5```
+- Déplacez-vous dans le répertoire envinfo1.
+
+   ```# cd envinfo1```
+- Créez les répertoires td6 td7 td8 à l’aide d’une seule commande.
+
+   ```# mkdir td6 td7 td8```
+   ```# tree```
+- Quelle(s) différence(s) faites-vous entre ces deux commandes pour créer les répertoires ?
+
+   - pour la première commande je dois utiliser un chemin absolut alors que pour la deuxième commande je dois             utiliser le répertoire 
+- En restant dans le répertoire envinfo1, créez en une seule commande un dossier eval, lui-
+  même contenant qcm1 et qcm2.
+
+   ```# mkdir eval eval/qcm1 eval/qcm2```
+
+<h2>Exo 2: arborescence et chemins</h2>
+
+À la suite de l’exercice précédent, vous vous trouvez toujours dans le répertoire envinfo1.
+
+- Déplacez-vous dans le répertoire qcm1 en une seule commande.
+
+   ```# cd eval/qcm1```
+- Utilisez la commande cd sans paramètre. Où vous retrouvez-vous ?
+
+   ```# cd```
+   - Je me trouve dans le dossier personnel
+
+- Déplacez-vous dans le répertoire qcm1. Avez-vous tapé la même commande qu’à la
+première question de cet exercice ? Pourquoi ?
+
+   ```# cd envinfo1/eval/qcm1```
+   - non car je n'étais pas dans le dossier personnel
+
+- Allez dans le répertoire « grand-parent » de qcm1 (donc dans le répertoire envinfo1).
+Donnez le chemin relatif par rapport au répertoire où vous vous trouvez (qcm1) et
+donnez le chemin absolu pour vous rendre dans ce répertoire.
+   - chemin relatif
+
+   ```# cd ../../```
+   - chemin absolu
+
+   ```# cd root/envinfo1```
+- Donnez la commande pour trouver le chemin absolu de votre répertoire personnel.
+Quel est ce chemin ?
+
+   ```# cd /home```
+- Pour vous déplacer dans le répertoire eval donnez les chemins absolus (à partir de la
+racine puis à partir de votre répertoire personnel) et le chemin relatif.
+   - racine
+     - racine absolu
+
+     ```# cd /root/envinfo1/eval```
+     - racine relatif
+
+     ```# cd /eval```
+   - personnel
+     - racine absolu
+
+     ```# cd /home```
+     - racine relatif
+
+     ```# cd ../../home```
+
+<h2>Exo 3: fichiers et répertoires</h2>
+
+À la suite de l’exercice précédent, vous vous trouvez toujours dans le répertoire eval.
+- Créez les fichiers vides controle1.txt, controle2.txt et controle3.txt en une seule
+  commande.
+
+   ```# cd ../../home```
+- Créez le répertoire controles
+
+   ```# cd ../../home```
+- Renommez le répertoire controles en examens
+
+   ```# cd ../../home```
+- Déplacer les fichiers controle1.txt, controle2.txt et controle3.txt dans le répertoire
+  examens.
+
+   ```# cd ../../home```
+- Déplacez-vous dans le répertoire examens puis copiez tous les fichiers dans le répertoire
+  qcm1.
+
+   ```# cd ../../home```
+- Déplacez-vous dans le répertoire qcm1 et créez en une seule commande les fichiers
+  question1.txt, question2.txt et question3.txt.
+
+   ```# cd ../../home```
