@@ -2,8 +2,6 @@
 
 [Site](https://shinobudev.github.io/Xampp/index.html)
 
-[Correction AP 16/09/2024](https://shinobudev.github.io/AP-1)
-
 <h1><ins>1 - Méthodes GET et POST</ins></h1>
 
 [__Sources__](https://developer.mozilla.org/fr/docs/Web/HTTP/Methods)
