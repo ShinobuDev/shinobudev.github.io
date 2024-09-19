@@ -4,5 +4,5 @@
 
 <h2>If you want to go trough the diverse pages of this repositery, here's the links :</h2>
 
-- [SLAM TD/TP](SLAM/site/Xampp)
+- [SLAM TD/TP](SLAM/Site/Xampp)
 - [SISR TD/TP](SISR/)
