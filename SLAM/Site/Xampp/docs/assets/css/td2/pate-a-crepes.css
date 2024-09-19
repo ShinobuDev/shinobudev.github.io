@@ -16,7 +16,7 @@ body {
     font-weight: bold;
 }
 
-#gris{
+.gris{
     border-radius: 0;
     color: rgba(0,0,0,.9);
     padding: 6px !important;

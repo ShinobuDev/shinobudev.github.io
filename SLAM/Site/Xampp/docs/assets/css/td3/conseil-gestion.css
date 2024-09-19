@@ -50,8 +50,7 @@ body {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px;
 }
-
-.section img{  
+.section img{
     max-width : 100%;
     height : auto;
 }
@@ -83,5 +82,7 @@ footer {
     background-color: #333;
     color: white;
     text-align: center;
+    transform: translateY(100px);
+    display: flex;
 }
 

@@ -1,0 +1,32 @@
+header{
+    background-color: cornflowerblue;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    display: flex;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+    color: #333;
+}
+
+h1{
+    font-weight: bold;
+}
+
+#Categories{
+    text-align: left;
+}
+
+#Blogs{
+    text-align: center;
+}
+
+#Tags{
+    text-align: right;
+}
