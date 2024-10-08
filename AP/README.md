@@ -3,6 +3,3 @@
 
 - SLAM
   - [1](APSLAM1)
-
-- SISR
-  - 1
