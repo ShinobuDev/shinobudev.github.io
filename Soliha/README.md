@@ -1,6 +1,6 @@
 # Formation Soliha :
 
-Voici la liste des différentes formation pour SOLIHA NORMANDIE
+### Voici la liste des différentes formation pour SOLIHA NORMANDIE
 
 - [Excel](Formation/Excel.pdf)
 - [Powerpoint](Formation/Powerpoint.pdf)
