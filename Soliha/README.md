@@ -1,4 +1,4 @@
-# Formation Soliha :
+# 🧑‍💼 Formation Soliha :
 
 ### Voici la liste des différentes formation pour SOLIHA NORMANDIE
 
