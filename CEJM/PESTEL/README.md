@@ -1,4 +1,4 @@
-Voici un tableau PESTEL développé pour SOLIHA, incluant les opportunités et les menaces :
+# SOLIHA
 
 | **Facteurs**     | **Description**                                                                                   | **Opportunités**                                                                                | **Menaces**                                                                                    |
 |------------------|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
@@ -9,4 +9,3 @@ Voici un tableau PESTEL développé pour SOLIHA, incluant les opportunités et l
 | **Environnemental**| Normes écologiques et gestion des ressources.                                                  | Opportunités d'accroître les projets écologiques et de répondre aux exigences environnementales. | Pressions accrues pour respecter des normes environnementales strictes.                       |
 | **Légal**        | Réglementations sur la construction et la sécurité des bâtiments.                                 | Possibilité de participer à des projets innovants répondant à des normes légales strictes.    | Changements réglementaires imprévus qui peuvent engendrer des coûts supplémentaires.          |
 
-Ce tableau offre une vue d'ensemble des facteurs influençant SOLIHA, tout en mettant en lumière les opportunités à saisir et les menaces à surveiller.
