@@ -1,25 +1,12 @@
-# SOLIHA
+Voici un tableau PESTEL développé pour SOLIHA, incluant les opportunités et les menaces :
 
-### Politique
-- **Politiques de logement** : Le soutien gouvernemental pour le logement social et les politiques de rénovation urbaine influencent directement les activités de SOLIHA.
-- **Subventions publiques** : Les aides financières et subventions pour le logement durable peuvent bénéficier à leurs projets.
+| **Facteurs**     | **Description**                                                                                   | **Opportunités**                                                                                | **Menaces**                                                                                    |
+|------------------|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Politique**    | Politiques de logement social, subventions gouvernementales.                                     | Augmentation des financements publics pour le logement social.                                 | Changements politiques pouvant réduire les subventions ou le soutien.                        |
+| **Économique**   | Conditions économiques, taux d'intérêt, budgets publics.                                         | Croissance des investissements dans le secteur du logement abordable.                          | Récessions économiques qui pourraient affecter le financement des projets.                    |
+| **Socioculturel**| Évolution des attentes sur le logement abordable et inclusif.                                    | Sensibilisation croissante sur les enjeux de l'habitat durable et solidaire.                   | Tensions sociales en cas de manque de logements adéquats pour les populations vulnérables.     |
+| **Technologique**| Innovations dans la construction et la digitalisation des services.                              | Adoption de nouvelles technologies pour améliorer l'efficacité et réduire les coûts.          | Risques liés à la cybersécurité et à l'obsolescence technologique.                            |
+| **Environnemental**| Normes écologiques et gestion des ressources.                                                  | Opportunités d'accroître les projets écologiques et de répondre aux exigences environnementales. | Pressions accrues pour respecter des normes environnementales strictes.                       |
+| **Légal**        | Réglementations sur la construction et la sécurité des bâtiments.                                 | Possibilité de participer à des projets innovants répondant à des normes légales strictes.    | Changements réglementaires imprévus qui peuvent engendrer des coûts supplémentaires.          |
 
-### Économique
-- **Conditions économiques** : La conjoncture économique, notamment les taux d'intérêt et le pouvoir d'achat des ménages, impacte la demande pour des solutions de logement.
-- **Investissements dans le secteur** : La disponibilité des financements pour des projets de réhabilitation peut affecter le nombre de projets que SOLIHA peut réaliser.
-
-### Socioculturel
-- **Évolution des attentes sociétales** : Une prise de conscience croissante concernant l'accès au logement et la qualité de vie influence les projets de SOLIHA.
-- **Démographie** : Le vieillissement de la population et la nécessité d'adapter les logements aux personnes âgées sont des facteurs importants à prendre en compte.
-
-### Technologique
-- **Innovation dans la construction** : Les nouvelles technologies de construction et de rénovation (matériaux écologiques, smart homes) peuvent offrir des opportunités pour améliorer l'efficacité des projets.
-- **Digitalisation des services** : L'usage des outils numériques pour la gestion des projets et la communication avec les bénéficiaires est essentiel pour optimiser les opérations.
-
-### Environnemental
-- **Normes écologiques** : La réglementation sur la performance énergétique des bâtiments influence les projets de rénovation et de construction.
-- **Sensibilisation à l’environnement** : L’augmentation de la demande pour des logements durables et écologiques peut orienter les actions de SOLIHA.
-
-### Légal
-- **Réglementations du logement** : Les lois relatives à l’habitat, à la sécurité et à l’accessibilité influencent le cadre dans lequel SOLIHA opère.
-- **Droit du travail** : Les réglementations concernant les employés et les bénévoles peuvent affecter la gestion interne de l'association.
+Ce tableau offre une vue d'ensemble des facteurs influençant SOLIHA, tout en mettant en lumière les opportunités à saisir et les menaces à surveiller.
