@@ -23,5 +23,3 @@
 ### Légal
 - **Réglementations du logement** : Les lois relatives à l’habitat, à la sécurité et à l’accessibilité influencent le cadre dans lequel SOLIHA opère.
 - **Droit du travail** : Les réglementations concernant les employés et les bénévoles peuvent affecter la gestion interne de l'association.
-
-Cet exemple peut être affiné selon les spécificités et les évolutions récentes concernant SOLIHA et son environnement.
