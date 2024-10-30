@@ -1,0 +1,45 @@
+num = int(input("Entrez un nombre: "))
+
+print("En Chiffre Romain: ", end='')
+
+while num != 0:
+    if num >= 1000:       # 1000 - m
+        print("m", end='')
+        num -= 1000
+    elif num >= 900:     # 900 -  cm
+        print("cm", end='')
+        num -= 900
+    elif num >= 500:     # 500 - d
+        print("d", end='')
+        num -= 500
+    elif num >= 400:     # 400 -  cd
+        print("cd", end='')
+        num -= 400
+    elif num >= 100:     # 100 - c
+        print("c", end='')
+        num -= 100
+    elif num >= 90:      # 90 - xc
+        print("xc", end='')
+        num -= 90
+    elif num >= 50:      # 50 - l
+        print("l", end='')
+        num -= 50
+    elif num >= 40:      # 40 - xl
+        print("xl", end='')
+        num -= 40
+    elif num >= 10:      # 10 - x
+        print("x", end='')
+        num -= 10
+    elif num >= 9:       # 9 - ix
+        print("ix", end='')
+        num -= 9
+    elif num >= 5:       # 5 - v
+        print("v", end='')
+        num -= 5
+    elif num >= 4:       # 4 - iv
+        print("iv", end='')
+        num -= 4
+    elif num >= 1:       # 1 - i
+        print("i", end='')
+        num -= 1
+
