@@ -9,6 +9,7 @@
 * [3eme méthode - Utiliser des URL](#3)
 
 <a name="Atc" />
+
 ## Avant toutes choses :
 
 ### Configurer une IP static
@@ -33,6 +34,7 @@ Une fois apache2 installé, modifier le fichier html avec ```nano /var/www/html/
 Mettez votre adresse IP sur votre navigateur pour y accéder.
 
 <a name="1" />
+
 ## 1ere méthode - Utiliser des adresse IP
 
 ### 1 - Mettre en place une seconde adresse IP
@@ -66,6 +68,7 @@ Puis, redemarrer les services : ```systemctl reload apache2```
 L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
 <a name="2" />
+
 ## 2eme méthode - Utiliser des ports
 
 ### 1 - Mettre en place les sites avec les numéros ports
@@ -85,6 +88,7 @@ Puis, redemarrer les services : ```systemctl reload apache2```
 L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```
 
 <a name="3" />
+
 ## 3eme méthode - Utiliser des URL
 
 ### 1 - Mettre en place les sites avec des URL
