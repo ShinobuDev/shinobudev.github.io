@@ -41,7 +41,11 @@ On peut voir que la deuxième IP est active (première IP ```ens18```, deuxième
 
 Créer les fichiers des 2 sites : ```mkdir -p /var/www/html/site1 /var/www/html/site2```
 
-Créer les 2 hôtes virtuel pour les 2
+Créer les 2 hôtes virtuel pour les 2 sites: ```nano /etc/apache2/sites-available/ip_vhosts.conf``` (créer la fichier pour héberger les sites)
+
+Dans le fichier ```ip_vhosts.conf``` mettre en place les 2 sites comme ceci :
+
+![](Capture.ip_vhosts.png)
  
 
 
