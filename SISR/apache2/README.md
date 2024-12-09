@@ -68,6 +68,8 @@ Dans le fichier ```CeQueTuVeuxIP.conf``` mettre en place les 2 sites comme ceci 
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer : ```a2ensite CeQueTuVeuxIP```
 
+Pour vérifier qu'il a bien été ajouter, faites : ```a2query -s```
+
 Puis, redemarrer les services : ```systemctl reload apache2```
 
 L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
@@ -111,6 +113,8 @@ Changer le fichier ```CeQueTuVeuxName.conf``` pour qu'il ressemble a ceci :
 ### 2 - Redémmarer les serveurs
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer (désactiver les sites IP si vous voulez ```a2dissite CeQueTuVeuxPort```) : ```a2ensite CeQueTuVeuxName```
+
+Pour vérifier qu'il a bien été ajouter, faites : ```a2query -s```
 
 Puis, redemarrer les services : ```systemctl reload apache2```
 
