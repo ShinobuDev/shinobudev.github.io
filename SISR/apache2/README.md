@@ -1,5 +1,7 @@
 # Faire des multisites Apache2 sur Debian 09/12/2024
 
+<a name="Debut" />
+
 <details open>
 <summary>Section</summary>
 
@@ -35,6 +37,8 @@ Mettez votre adresse IP sur votre navigateur pour y accéder.
 
 <a name="1" />
 
+[Revenir au début](#Debut)
+
 ## 1ere méthode - Utiliser des adresse IP
 
 ### 1 - Mettre en place une seconde adresse IP
@@ -69,6 +73,8 @@ L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
 <a name="2" />
 
+[Revenir au début](#Debut)
+
 ## 2eme méthode - Utiliser des ports
 
 ### 1 - Mettre en place les sites avec les numéros ports
@@ -88,6 +94,8 @@ Puis, redemarrer les services : ```systemctl reload apache2```
 L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```
 
 <a name="3" />
+
+[Revenir au début](#Debut)
 
 ## 3eme méthode - Utiliser des URL
 
@@ -119,4 +127,4 @@ Mais les sites ne marcheront pas car il faut les rajouter dans Windows
 
 L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```, ils fonctionneront cette fois
 
-
+[Revenir au début](#Debut)
