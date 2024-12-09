@@ -1,4 +1,6 @@
-# Faire un serveur Apache2 sur Debian
+# Faire des multisites Apache2 sur Debian 09/12/2024
+
+
 
 ## Avant toutes choses :
 
@@ -14,16 +16,16 @@ Modifier le fichier resolv.conf pour enlever le domaine de base et le remplacer 
 
 Relancer Debian avec la commande : ```reboot```
 
-## 1er méthode - Installer normalement apache2
+### Installer apache2
 
 Lancer la commande : ```apt install apache2```
 
-Une fois apache2 installé, modifier le fichier html avec ``` nano /var/www/html/index.html``` si vous le souhaitez.
+Une fois apache2 installé, modifier le fichier html avec ```nano /var/www/html/index.html``` si vous le souhaitez.
 (tout les sites crées avec apache2 pourrons être modifier dans ```/var/www/html/leSiteQueTuVeux```)
 
 Mettez votre adresse IP sur votre navigateur pour y accéder.
 
-## 2eme méthode - Faire du multisite
+## 1ere méthode - Utiliser des adresse IP
 
 ### 1 - Mettre en place une seconde adresse IP
 
@@ -47,16 +49,60 @@ Dans le fichier ```CeQueTuVeuxIP.conf``` mettre en place les 2 sites comme ceci 
 
 ![](Capture/ip_vhosts.png)
 
-### 3 - redémmarer les serveurs
+### 3 - Redémmarer les serveurs
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer : ```a2ensite CeQueTuVeuxIP```
 
-Puis, redémarrer les services : ```systemctl reload apache2```
+Puis, redemarrer les services : ```systemctl reload apache2```
 
-## 3eme méthode - 
- 
+L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
+
+## 2eme méthode - Utiliser des ports
+
+### 1 - Mettre en place les sites avec les numéros ports
+
+Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIP.conf /etc/apache2/sites-available/CeQueTuVeuxIPort.conf```
+
+Changer le fichier ```CeQueTuVeuxPort.conf``` pour qu'il ressemble a ceci : 
+
+![](Capture/port_vhosts.png)
+
+### 2 - Redémmarer les serveurs
+
+Après avoir fait ca, les sites ne marchent pas car il faut les activer (désactiver les sites IP si vous voulez ```a2dissite CeQueTuVeuxIP```) : ```a2ensite CeQueTuVeuxPort```
+
+Puis, redemarrer les services : ```systemctl reload apache2```
+
+L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```
+
+## 3eme méthode - Utiliser des URL
+
+### 1 - Mettre en place les sites avec des URL
+
+Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIPort.conf /etc/apache2/sites-available/CeQueTuVeuxName.conf```
+
+Changer le fichier ```CeQueTuVeuxName.conf``` pour qu'il ressemble a ceci : 
+
+![](Capture/name_vhosts.png)
+
+### 2 - Redémmarer les serveurs
+
+Après avoir fait ca, les sites ne marchent pas car il faut les activer (désactiver les sites IP si vous voulez ```a2dissite CeQueTuVeuxPort```) : ```a2ensite CeQueTuVeuxName```
+
+Puis, redemarrer les services : ```systemctl reload apache2```
+
+L'URL pour mes sites sont ```site1.robin.local``` et ```site2.robin.local```
+
+Mais les sites ne marcheront pas car il faut les rajouter dans Windows
+
+### 3 - Host dans windows
+
+- Éxecuter en Administrateur Notepad++ (ou un équivalent)
+- Ouvrir avec Notpad++ ici : ```C:\Windows\System32\drivers\etc\hosts```
+- Modifier le fichier en rajoutant l'IP et le nom du site :
+![](Capture/hosts.png)
 
 
-
+L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```, ils fonctionneront cette fois
 
 
