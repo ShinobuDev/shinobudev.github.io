@@ -9,6 +9,7 @@
 * [1ere méthode - Utiliser des adresse IP](#1)
 * [2eme méthode - Utiliser des ports](#2)
 * [3eme méthode - Utiliser des URL](#3)
+</details>
 
 <a name="Atc" />
 
