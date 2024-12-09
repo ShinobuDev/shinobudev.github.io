@@ -1,7 +1,14 @@
 # Faire des multisites Apache2 sur Debian 09/12/2024
 
+<details open>
+<summary>Section</summary>
 
+* [Avant toute chose](#Atc)
+* [1ere méthode - Utiliser des adresse IP](#1)
+* [2eme méthode - Utiliser des ports](#2)
+* [3eme méthode - Utiliser des URL](#3)
 
+<a name="Atc" />
 ## Avant toutes choses :
 
 ### Configurer une IP static
@@ -25,6 +32,7 @@ Une fois apache2 installé, modifier le fichier html avec ```nano /var/www/html/
 
 Mettez votre adresse IP sur votre navigateur pour y accéder.
 
+<a name="1" />
 ## 1ere méthode - Utiliser des adresse IP
 
 ### 1 - Mettre en place une seconde adresse IP
@@ -57,11 +65,12 @@ Puis, redemarrer les services : ```systemctl reload apache2```
 
 L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
+<a name="2" />
 ## 2eme méthode - Utiliser des ports
 
 ### 1 - Mettre en place les sites avec les numéros ports
 
-Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIP.conf /etc/apache2/sites-available/CeQueTuVeuxIPort.conf```
+Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIP.conf /etc/apache2/sites-available/CeQueTuVeuxPort.conf```
 
 Changer le fichier ```CeQueTuVeuxPort.conf``` pour qu'il ressemble a ceci : 
 
@@ -75,11 +84,12 @@ Puis, redemarrer les services : ```systemctl reload apache2```
 
 L'URL pour mes sites sont ```172.17.202.13:80``` et ```172.17.202.13:8080```
 
+<a name="3" />
 ## 3eme méthode - Utiliser des URL
 
 ### 1 - Mettre en place les sites avec des URL
 
-Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIPort.conf /etc/apache2/sites-available/CeQueTuVeuxName.conf```
+Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxPort.conf /etc/apache2/sites-available/CeQueTuVeuxName.conf```
 
 Changer le fichier ```CeQueTuVeuxName.conf``` pour qu'il ressemble a ceci : 
 
