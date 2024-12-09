@@ -6,8 +6,8 @@
 <summary>Section</summary>
 
 * [Avant toute chose](#Atc)
-* [1ere méthode - Utiliser des adresse IP](#1)
-* [2eme méthode - Utiliser des ports](#2)
+* [1ere méthode - Utiliser des adresses IP](#1)
+* [2eme méthode - Utiliser des numéro de ports](#2)
 * [3eme méthode - Utiliser des URL](#3)
 </details>
 
@@ -40,7 +40,7 @@ Mettez votre adresse IP sur votre navigateur pour y accéder.
 
 [Revenir au début](#Debut)
 
-## 1ere méthode - Utiliser des adresse IP
+## 1ere méthode - Utiliser des adresses IP
 
 ### 1 - Mettre en place une seconde adresse IP
 
@@ -78,7 +78,7 @@ L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
 [Revenir au début](#Debut)
 
-## 2eme méthode - Utiliser des ports
+## 2eme méthode - Utiliser des numéro de ports
 
 ### 1 - Mettre en place les sites avec les numéros ports
 
