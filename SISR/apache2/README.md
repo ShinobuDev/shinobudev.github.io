@@ -83,7 +83,7 @@ Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/C
 
 Changer le fichier ```CeQueTuVeuxName.conf``` pour qu'il ressemble a ceci : 
 
-![](Capture/name_vhosts.png)
+![](Capture/name_hosts.png)
 
 ### 2 - Redémmarer les serveurs
 
@@ -95,7 +95,7 @@ L'URL pour mes sites sont ```site1.robin.local``` et ```site2.robin.local```
 
 Mais les sites ne marcheront pas car il faut les rajouter dans Windows
 
-### 3 - Host dans windows
+### 3 - Modifier hosts dans windows
 
 - Éxecuter en Administrateur Notepad++ (ou un équivalent)
 - Ouvrir avec Notpad++ ici : ```C:\Windows\System32\drivers\etc\hosts```
