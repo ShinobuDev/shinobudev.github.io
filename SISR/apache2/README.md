@@ -47,8 +47,8 @@ Mettez votre adresse IP sur votre navigateur pour y accéder.
 Mettre sa deuxième adresse avec la commande ```ip adr add x.x.x.x/16 dev ens18 label ens18:0```
 (le 16 après l'adresse IP est le CIDR, pour le masque de sous-réseau)
 
-ens18 est l'ethernet du réseau.
-Pour cette deuxième adresse nous renomons ens18 en ens18:0 pour la ne pas faire de conflit.
+ens18 est correspond à l'ethernet du réseau.
+Pour cette deuxième adresse nous renommons ens18 en ens18:0 pour ne pas faire de conflit.
 
 ![](Capture/IP2.png)
 
@@ -58,19 +58,19 @@ On peut voir que la deuxième IP est active (première IP ```ens18```, deuxième
 
 Créer les fichiers des 2 sites : ```mkdir -p /var/www/html/site1 /var/www/html/site2```
 
-Créer les 2 hôtes virtuel pour les 2 sites: ```nano /etc/apache2/sites-available/CeQueTuVeuxIP.conf``` (créer la fichier pour héberger les sites)
+Créer les 2 hôtes virtuels pour les 2 sites: ```nano /etc/apache2/sites-available/CeQueTuVeuxIP.conf``` (créer la fichier pour héberger les sites)
 
 Dans le fichier ```CeQueTuVeuxIP.conf``` mettre en place les 2 sites comme ceci :
 
 ![](Capture/ip_vhosts.png)
 
-### 3 - Redémmarer les serveurs
+### 3 - Redémarrer les services web
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer : ```a2ensite CeQueTuVeuxIP```
 
 Pour vérifier qu'il a bien été ajouter, faites : ```a2query -s```
 
-Puis, redemarrer les services : ```systemctl reload apache2```
+Puis, redémarrer les services : ```systemctl reload apache2```
 
 L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
@@ -78,9 +78,9 @@ L'URL pour mes sites sont ```172.17.202.13``` et ```172.17.202.113```
 
 [Revenir au début](#Debut)
 
-## 2ème méthode - Utiliser des numéro de ports
+## 2ème méthode - Utiliser des numéros de ports
 
-### 1 - Mettre en place les sites avec les numéros ports
+### 1 - Mettre en place les sites avec les numéros de ports
 
 Copier le fichier pour le changer ensuite : ```cp /etc/apache2/sites-available/CeQueTuVeuxIP.conf /etc/apache2/sites-available/CeQueTuVeuxPort.conf```
 
@@ -88,7 +88,7 @@ Changer le fichier ```CeQueTuVeuxPort.conf``` pour qu'il ressemble a ceci :
 
 ![](Capture/port_vhosts.png)
 
-### 2 - Redémmarer les serveurs
+### 2 - Redémmarer les services web
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer (désactiver les sites IP si vous voulez ```a2dissite CeQueTuVeuxIP```) : ```a2ensite CeQueTuVeuxPort```
 
@@ -110,19 +110,19 @@ Changer le fichier ```CeQueTuVeuxName.conf``` pour qu'il ressemble a ceci :
 
 ![](Capture/name_hosts.png)
 
-### 2 - Redémmarer les serveurs
+### 2 - Redémmarer les services web
 
 Après avoir fait ca, les sites ne marchent pas car il faut les activer (désactiver les sites IP si vous voulez ```a2dissite CeQueTuVeuxPort```) : ```a2ensite CeQueTuVeuxName```
 
-Pour vérifier qu'il a bien été ajouter, faites : ```a2query -s```
+Pour vérifier qu'il a bien été ajouté, faites : ```a2query -s```
 
-Puis, redemarrer les services : ```systemctl reload apache2```
+Puis, redémarrer les services : ```systemctl reload apache2```
 
 L'URL pour mes sites sont ```site1.robin.local``` et ```site2.robin.local```
 
 Mais les sites ne marcheront pas car il faut les rajouter dans Windows
 
-### 3 - Modifier hosts dans windows
+### 3 - Modifier le fichier hosts dans Windows
 
 - Éxecuter en Administrateur Notepad++ (ou un équivalent)
 - Ouvrir avec Notpad++ ici : ```C:\Windows\System32\drivers\etc\hosts```
