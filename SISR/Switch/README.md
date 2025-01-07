@@ -41,7 +41,14 @@ Puis relancer le switch :
 - Puis supprimer ``` config.text ``` en tapant ``` del flash:config.text ```
 - Tapez ``` boot ``` pour initialiser le switch
 
+## 5 - Ajouter un login et mdp
 
+- Aller dans le mode configuration : ``` conf t ```
+- Aller dans le console : ``` line console 0```
+- Tapez ``` password (mdpQueTuVeux) ```
+- Sortir du mode configuration
+- Puis taper ``` login ```
+- Tapez ``` exit ``` pour savoir si le mdp est bien actif
 
 
 
