@@ -22,7 +22,7 @@
 ## 3 - Supprimer les fichiers de configuration
 Supprimer le ``` vlan.dat ``` :
 - Tapez ``` delete flash:vlan.dat ```
-- 🛑 NE SURTOUT PAS TAPER ``` delete flash: ``` 🛑
+- ⚠️ NE SURTOUT PAS TAPER ``` delete flash: ``` ⚠️ 
 
 Puis supprimer le ``` config.text ``` :
 - Tapez ``` erase startup_config ```
