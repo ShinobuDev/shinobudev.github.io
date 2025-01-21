@@ -50,7 +50,54 @@ Puis relancer le switch :
 - Puis taper ``` login ```
 - Tapez ``` exit ``` pour savoir si le mdp est bien actif
 
+### Mettre un login et un mot de passe pour le telnet puis le crypter
 
+username etudiante secret telnet
+
+conf t
+	service password-encryption
+end
+sh run (pour vérifier)
+
+### Configurer le telnet
+
+- conf t
+- line vty 0 1
+- transport input telnet
+- login local
+
+Après avoir tout vérifier : wr
+
+### Pour que la journalisation ne coupe pas les commandes
+
+- logging synchronous
+
+### Désactiver la recherche DNS
+
+- no ip domain-lookup
+
+### Mettre un suffixe DNS
+
+- ip domain-name sisr.local
+
+### Mettre une passerelle par défaut
+
+- ip default-gateway xxx.xxx.xxx.xxx
+
+### Mettre une bannière
+
+- banner ?
+
+### Vlan
+
+- conf t
+	vlan x
+	name (nom vlan)
+
+int range fao/1,fao/2-5,fao/9,etc...
+
+switchport mode access
+switchport access vlan x
 
 
 
