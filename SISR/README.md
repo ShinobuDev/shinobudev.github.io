@@ -5,3 +5,4 @@
 - [ProxMox](ProxMox)
 - [Apache2 Debian](apache2)
 - [Switch](Switch)
+- [DNS](DNS)
