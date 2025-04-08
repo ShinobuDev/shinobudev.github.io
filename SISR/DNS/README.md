@@ -1,4 +1,4 @@
-# 📡 Configuration d’un Serveur DNS avec BIND9
+# 🛰️ Configuration d’un Serveur DNS + Reverse DNS avec BIND9
 
 ---
 
@@ -30,67 +30,96 @@ sudo nano /etc/bind/named.conf.local
 ```conf
 zone "@.local" {
     type master;
-    file "/var/cache/bind/db.@.local";
+    file "db.@.local";
+};
+
+zone "1.168.192.in-addr.arpa" {
+    type master;
+    file "db.192.168.1";
 };
 ```
 
-> 🔁 Remplacer **@** par ton nom de domaine personnalisé.
+> 🔁 Remplace **@** par ton nom de domaine personnalisé (ex. `monsite`, `reseau`, etc.).
 
 ---
 
-## 📄 3. Création du fichier de zone
+## 📄 3. Création des fichiers de zone
 
-### Créer : `/var/cache/bind/db.@.local`
+### 🧭 Fichier de zone **direct** : `/var/cache/bind/db.@.local`
 
 ```bash
 sudo nano /var/cache/bind/db.@.local
 ```
 
-> 🔁 Remplacer **@** par ton nom de domaine personnalisé.
-
-➡️ Contenu du fichier :
+➡️ Contenu :
 
 ```dns
 $TTL 604800
 
-@.local.  IN  SOA  debian-AR-DNS.@.local.  admin.@.local.  (
-             2         ; Serial
-        604800         ; Refresh
-         86400         ; Retry
-       2419200         ; Expire
-        604800         ; Negative Cache TTL
+@.local.    IN    SOA    debianDNS.@.local.    admin.@.local.    (
+              2         ; Serial
+         604800         ; Refresh
+          86400         ; Retry
+        2419200         ; Expire
+         604800         ; Negative Cache TTL
 )
 
-; Name servers
-@.local.  IN  NS  debian-AR-DNS.@.local.
+; Name server
+@.local.       IN  NS  debianDNS.@.local.
 
-; Addresses
-debian-AR-DNS.@.local   IN  A   192.168.1.1
-CEQUETUVEUX.@.local     IN  A   192.168.1.10
+; Host addresses
+debianDNS.@.local.      IN    A    192.168.1.18
+poste01.@.local.        IN    A    192.168.1.188
 ```
 
-> ⚠️ Attention à bien utiliser **des tabulations ou des espaces mais jamais les deux** dans le fichier.
+> 🔁 Remplace `@` par ton nom de domaine.
 
-> 🔁 Remplacer `@` par ton domaine, et `debian-AR-DNS` par le nom de ton serveur.
+> 🔁 Remplace **`debianDNS`** par le nom de ton serveur DNS (ex. `dns01`, `ns1`, etc.).
+
+> 🔁 Utilise des tabulations a la place des espaces.
 
 ---
 
-## ✅ 4. Vérification de la configuration
-
-### Vérifie la validité des fichiers de configuration :
+### 🔁 Fichier de zone **inverse** : `/var/cache/bind/db.192.168.1`
 
 ```bash
-sudo named-checkconf
-sudo named-checkzone @.local /var/cache/bind/db.@.local
+sudo nano /var/cache/bind/db.192.168.1
 ```
 
-> 🔁 Remplacer **@** par ton nom de domaine personnalisé.
+➡️ Contenu :
 
-> 🔧 Si des erreurs apparaissent, elles indiqueront la ligne à corriger.
+```dns
+$TTL 86400
+
+1.168.192.in-addr.arpa.    IN    SOA    debianDNS.@.local.    admin.@.local.    (
+              1         ; Serial
+         604800         ; Refresh
+          86400         ; Retry
+        2419200         ; Expire
+          86400         ; Negative Cache TTL
+)
+
+; Name server
+1.168.192.in-addr.arpa.       IN    NS    debianDNS.@.local.
+
+; PTR records
+18.168.192.in-addr.arpa.      IN    PTR   debianDNS.@.local.
+188.168.192.in-addr.arpa.     IN    PTR   poste01.@.local.
+```
+
+> 🔁 Ici aussi, remplace `@` et `debianDNS` comme ci-dessus.
 
 ---
 
-## 🔄 5. Redémarrage ou rechargement du service DNS
+## ✅ 4. Vérification des fichiers de configuration
+
+```bash
+sudo named-checkconf -z
+```
+
+---
+
+## 🔄 5. Redémarrage ou rechargement du service
 
 ### Après modification d’un `.conf` :
 
@@ -98,13 +127,13 @@ sudo named-checkzone @.local /var/cache/bind/db.@.local
 sudo systemctl restart bind9
 ```
 
-### Après modification d’un fichier de zone uniquement :
+### Après modification d’un fichier de zone :
 
 ```bash
 sudo systemctl reload bind9
 ```
 
-### Vérifier que le service est actif :
+### Vérifier le service :
 
 ```bash
 systemctl status bind9
@@ -112,67 +141,72 @@ systemctl status bind9
 
 ---
 
-## 🧪 6. Tester le serveur DNS
+## 🧪 6. Tester la résolution DNS
 
-### Tester si on interroge bien les serveurs racines :
+### Résolution **directe** :
 
 ```bash
-dig
+dig debianDNS.@.local
 ```
+
+> 🔁 Remplace `@` et `debianDNS` comme mentionné plus haut.
 
 ---
 
-## ⚙️ 7. Changer le DNS local utilisé
+### Résolution **inverse** :
 
-### Modifier : `/etc/resolv.conf`
+```bash
+dig -x 192.168.1.18
+dig -x 192.168.1.188
+```
+
+> ✔️ Si tu obtiens une réponse avec un champ `QUERY` et un champ `ANSWER` contenant tout le sdeux un 1, c’est bon !
+
+---
+
+## ⚙️ 7. Définir le serveur DNS local
+
+### Modifier `/etc/resolv.conf` :
 
 ```bash
 sudo nano /etc/resolv.conf
 ```
 
-➡️ Exemple de contenu :
+➡️ Exemple :
 
 ```
 domain @.local
 search @.local
 nameserver 127.0.0.1
 ```
-> 🔁 Remplacer `@` par ton domaine, et `debian-AR-DNS` par le nom de ton serveur.
 
-> 🔁 Remplacer par l’IP de ton serveur DNS si besoin.
+> 🔁 Remplace `@` par ton domaine et `127.0.0.1` par l’IP de ton serveur DNS si nécessaire.
 
 ---
 
-## ⛔ Empêcher la modification automatique de `/etc/resolv.conf`
+## ⛔ Empêcher la réécriture de `/etc/resolv.conf`
 
-### 1. Trouver le processus DHCP :
+### 1. Identifier le processus DHCP :
 
 ```bash
 ps -aux | grep dhcp
 ```
 
-### 2. Terminer le processus `dhclient` :
+### 2. Tuer le processus :
 
 ```bash
 sudo kill <PID>
 ```
 
-> Remplace `<PID>` par le numéro du processus trouvé précédemment.
+> Remplace `<PID>` par le numéro du processus affiché.
 
 ---
 
-## 🔁 8. Tester les enregistrements DNS
+## 🧾 Résumé
 
-### Exemple de commande `dig` :
+| Type de zone     | Fichier associé                     | Exemple de contenu        |
+|------------------|-------------------------------------|---------------------------|
+| DNS direct       | `/var/cache/bind/db.@.local`        | A records (noms → IP)     |
+| DNS inverse      | `/var/cache/bind/db.192.168.1`      | PTR records (IP → noms)   |
 
-```bash
-dig debian-AR-DNS.@.local
-```
-
-> 🔁 Remplacer `@` par ton domaine, et `debian-AR-DNS` par le nom de ton serveur.
-
-> ✔️ Si la réponse contient :
-- **QUERY: 1**
-- **ANSWER: 1**
-
-alors la résolution DNS est **fonctionnelle** 🎉
+✅ Utilise `dig` et remplace les `@` et `debianDNS` par les valeurs réelles de ton réseau.
