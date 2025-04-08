@@ -1,4 +1,23 @@
-# 🛰️ Configuration d’un Serveur DNS + Reverse DNS avec BIND9
+# 🛰️ Configuration d’un Serveur DNS + Reverse DNS avec BIND9  
+📦 *Compatible & testé avec Debian 12.5 (Bookworm)*
+
+---
+
+## 🎯 Prérequis
+
+Avant de commencer, assure-toi que :
+
+- Tu disposes d’un accès `root` ou `sudo`.
+- Ton serveur a une IP statique sur ton réseau local (ex : `192.168.1.18`).
+
+---
+
+## 📁 Particularités Debian 12.5
+
+| Élément                      | Détail                                                                 |
+|-----------------------------|------------------------------------------------------------------------|
+| 📂 Fichiers de zones         | Ils **doivent être placés** dans `/var/cache/bind/`                  |
+| 🔗 `/etc/resolv.conf`       | Souvent un lien symbolique géré automatiquement par `systemd-resolved` |
 
 ---
 
@@ -72,11 +91,9 @@ debianDNS.@.local.      IN    A    192.168.1.18
 poste01.@.local.        IN    A    192.168.1.188
 ```
 
-> 🔁 Remplace `@` par ton nom de domaine.
-
-> 🔁 Remplace **`debianDNS`** par le nom de ton serveur DNS (ex. `dns01`, `ns1`, etc.).
-
-> 🔁 Utilise des tabulations a la place des espaces.
+> 🔁 Remplace `@` par ton nom de domaine.  
+> 🔁 Remplace **`debianDNS`** par le nom de ton serveur DNS (ex. `dns01`).  
+> ⚠️ Utilise **soit des tabulations, soit des espaces**, mais pas les deux.
 
 ---
 
@@ -109,13 +126,13 @@ $TTL 86400
 
 > 🔁 Ici aussi, remplace `@` et `debianDNS` comme ci-dessus.
 
----
-
 ## ✅ 4. Vérification des fichiers de configuration
 
 ```bash
 sudo named-checkconf -z
 ```
+
+> ✅ Si aucun message d’erreur n’apparaît, tout est bon.
 
 ---
 
@@ -133,7 +150,7 @@ sudo systemctl restart bind9
 sudo systemctl reload bind9
 ```
 
-### Vérifier le service :
+### Vérifier que le service est actif :
 
 ```bash
 systemctl status bind9
@@ -149,10 +166,6 @@ systemctl status bind9
 dig debianDNS.@.local
 ```
 
-> 🔁 Remplace `@` et `debianDNS` comme mentionné plus haut.
-
----
-
 ### Résolution **inverse** :
 
 ```bash
@@ -160,7 +173,9 @@ dig -x 192.168.1.18
 dig -x 192.168.1.188
 ```
 
-> ✔️ Si tu obtiens une réponse avec un champ `QUERY` et un champ `ANSWER` contenant tout le sdeux un 1, c’est bon !
+> ✔️ Si la réponse contient :  
+`;; ->>HEADER<<- opcode: QUERY, status: NOERROR`  
+et une section **ANSWER** avec 1 ou plusieurs résultats → 🎉 **ça fonctionne !**
 
 ---
 
@@ -172,7 +187,7 @@ dig -x 192.168.1.188
 sudo nano /etc/resolv.conf
 ```
 
-➡️ Exemple :
+➡️ Exemple de contenu :
 
 ```
 domain @.local
@@ -180,33 +195,22 @@ search @.local
 nameserver 127.0.0.1
 ```
 
-> 🔁 Remplace `@` par ton domaine et `127.0.0.1` par l’IP de ton serveur DNS si nécessaire.
+> 🔁 Remplace `@` par ton domaine.
 
 ---
 
-## ⛔ Empêcher la réécriture de `/etc/resolv.conf`
+## ⛔ 8. Empêcher la réécriture de `/etc/resolv.conf`
 
-### 1. Identifier le processus DHCP :
+### 1. Trouver le processus DHCP :
 
 ```bash
 ps -aux | grep dhcp
 ```
 
-### 2. Tuer le processus :
+### 2. Terminer le processus `dhclient` :
 
 ```bash
 sudo kill <PID>
 ```
 
-> Remplace `<PID>` par le numéro du processus affiché.
-
----
-
-## 🧾 Résumé
-
-| Type de zone     | Fichier associé                     | Exemple de contenu        |
-|------------------|-------------------------------------|---------------------------|
-| DNS direct       | `/var/cache/bind/db.@.local`        | A records (noms → IP)     |
-| DNS inverse      | `/var/cache/bind/db.192.168.1`      | PTR records (IP → noms)   |
-
-✅ Utilise `dig` et remplace les `@` et `debianDNS` par les valeurs réelles de ton réseau.
+> Remplace `<PID>` par le numéro du processus trouvé précédemment.
