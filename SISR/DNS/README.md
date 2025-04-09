@@ -386,7 +386,7 @@ dig poste01.@.local
 `;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`  
 → 🎉 **ça fonctionne !**
 
-10. 🏁 Conclusion <a id="🏁-Conclusion"></a>
+## 10. 🏁 Conclusion <a id="🏁-Conclusion"></a>
 
 Félicitations 🎉 ! Tu viens de mettre en place une infrastructure DNS complète avec un serveur primaire, un serveur secondaire et 
 une gestion des résolutions directes et inverses, le tout sécurisé et conforme aux bonnes pratiques sur Debian 12.5.
@@ -401,4 +401,4 @@ Grâce à cette configuration, tu maîtrises maintenant :
 
 👉 N’oublie pas de sauvegarder régulièrement tes fichiers de configuration, de surveiller les logs de BIND (journalctl -u bind9) et de garder ton linux à jour.
 
-Bonne journée' ! 👨‍💻👩‍💻
+### Bonne journée' ! 👨‍💻👩‍💻
