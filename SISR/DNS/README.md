@@ -384,3 +384,20 @@ dig poste01.@.local
 > ✔️ Si la réponse contient :  
 `;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`  
 → 🎉 **ça fonctionne !**
+
+🏁 Conclusion
+
+Félicitations 🎉 ! Tu viens de mettre en place une infrastructure DNS complète avec un serveur primaire, un serveur secondaire et 
+une gestion des résolutions directes et inverses, le tout sécurisé et conforme aux bonnes pratiques sur Debian 12.5.
+
+Grâce à cette configuration, tu maîtrises maintenant :
+
+    La gestion des zones DNS avec BIND9 🗂️
+
+    La résolution directe et inversée des noms de domaine 🔄
+
+    La réplication automatique vers un serveur secondaire pour plus de redondance et de fiabilité 🛰️
+
+👉 N’oublie pas de sauvegarder régulièrement tes fichiers de configuration, de surveiller les logs de BIND (journalctl -u bind9) et de garder ton linux à jour.
+
+Bonne journée' ! 👨‍💻👩‍💻
