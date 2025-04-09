@@ -16,7 +16,7 @@
 7. [🔄 Rechargement et redémarrage du service](#🔄-5-redémarrage-ou-rechargement-du-service)  
 8. [🧪 Tester la résolution DNS](#🧪-6-tester-la-résolution-dns)  
 9. [⚙️ Définir le serveur DNS local](#⚙️-7-définir-le-serveur-dns-local)  
-10. [⛔ Empêcher la réécriture de resolv.conf](#⛔-8-empêcher-la-réécriture-de-etcresolvconf)  
+10. [⛔ Empêcher la réécriture automatique de `/etc/resolv.conf`(DHCP)](#⛔-8-empêcher-la-réécriture-de-etcresolvconf)  
 11. [🛰️ Configuration d’un serveur DNS secondaire (slave)](#🛰️-9-configuration-dun-serveur-dns-secondaire-esclave)  
     - [Configuration du maître](#configuration-du-maitre)  
     - [Configuration de l’esclave](#configuration-de-lesclave)
@@ -230,7 +230,7 @@ nameserver 127.0.0.1
 
 ---
 
-## ⛔ 8. Empêcher la réécriture de `/etc/resolv.conf` <a id="⛔-8-empêcher-la-réécriture-de-etcresolvconf"></a>
+## ⛔ 8. Empêcher la réécriture automatique de `/etc/resolv.conf`(DHCP) <a id="⛔-8-empêcher-la-réécriture-de-etcresolvconf"></a>
 
 ### 1. Trouver le processus DHCP :
 
@@ -244,13 +244,13 @@ ps -aux | grep dhcp
 sudo kill <PID>
 ```
 
-> Remplace `<PID>` par le numéro du processus trouvé précédemment.
+> Remplace `<PID>` par le numéro du processus trouvé précédemment pour enlever la réecriture automatique du fichier `/etc/resolv.conf`.
 
 ---
 
 ## 🛰️ 9. Configuration d’un serveur DNS secondaire (esclave) <a id="🛰️-9-configuration-dun-serveur-dns-secondaire-esclave"></a>
 
-🎯 Le serveur secondaire va **répliquer automatiquement** les zones depuis le maître.
+🎯 Le serveur secondaire va **répliquer automatiquement** les zones depuis le master.
 
 ---
 
