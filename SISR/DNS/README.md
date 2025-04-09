@@ -5,23 +5,24 @@
 
 # 📚 Sommaire
 
-1. [🎯 Prérequis](#🎯-prérequis)  
-2. [📁 Particularités Debian 12.5](#📁-particularités-debian-125)  
-3. [🧱 Installation de BIND9](#🧱-1-installation-de-bind9)  
-4. [🗂️ Création des zones DNS](#🗂️-2-création-des-zones-dns)  
-5. [📄 Création des fichiers de zone](#📄-3-création-des-fichiers-de-zone)  
+   [🎯 Prérequis](#🎯-prérequis)  
+   [📁 Particularités Debian 12.5](#📁-particularités-debian-125)  
+1. [🧱 Installation de BIND9](#🧱-1-installation-de-bind9)  
+2. [🗂️ Création des zones DNS](#🗂️-2-création-des-zones-dns)  
+3. [📄 Création des fichiers de zone](#📄-3-création-des-fichiers-de-zone)  
    - [Fichier de zone direct](#Fichier-de-zone-direct)
    - [Fichier de zone inverse](#Fichier-de-zone-inverse)
-6. [✅ Vérification des fichiers de configuration](#✅-4-vérification-des-fichiers-de-configuration)  
-7. [🔄 Rechargement et redémarrage du service](#🔄-5-redémarrage-ou-rechargement-du-service)  
-8. [🧪 Tester la résolution DNS](#🧪-6-tester-la-résolution-dns)  
-9. [⚙️ Définir le serveur DNS local](#⚙️-7-définir-le-serveur-dns-local)  
-10. [⛔ Empêcher la réécriture automatique de `/etc/resolv.conf`(DHCP)](#⛔-8-empêcher-la-réécriture-de-etcresolvconf)  
-11. [🛰️ Configuration d’un serveur DNS secondaire (slave)](#🛰️-9-configuration-dun-serveur-dns-secondaire-esclave)  
+4. [✅ Vérification des fichiers de configuration](#✅-4-vérification-des-fichiers-de-configuration)  
+5. [🔄 Rechargement et redémarrage du service](#🔄-5-redémarrage-ou-rechargement-du-service)  
+6. [🧪 Tester la résolution DNS](#🧪-6-tester-la-résolution-dns)  
+7. [⚙️ Définir le serveur DNS local](#⚙️-7-définir-le-serveur-dns-local)  
+8. [⛔ Empêcher la réécriture automatique de `/etc/resolv.conf`(DHCP)](#⛔-8-empêcher-la-réécriture-de-etcresolvconf)  
+9. [🛰️ Configuration d’un serveur DNS secondaire (slave)](#🛰️-9-configuration-dun-serveur-dns-secondaire-esclave)  
     - [Configuration du maître](#configuration-du-maitre)  
     - [Configuration de l’esclave](#configuration-de-lesclave)
     - [Modifier le fichier `/etc/resolv.conf`](#Modifier-le-fichier-/etc/resolv.conf)
     - [Vérifications](#verifications)
+10. [🏁 Conclusion](#🏁-Conclusion)  
 
 ---
 
@@ -385,7 +386,7 @@ dig poste01.@.local
 `;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`  
 → 🎉 **ça fonctionne !**
 
-🏁 Conclusion
+10. 🏁 Conclusion <a id="🏁-Conclusion"></a>
 
 Félicitations 🎉 ! Tu viens de mettre en place une infrastructure DNS complète avec un serveur primaire, un serveur secondaire et 
 une gestion des résolutions directes et inverses, le tout sécurisé et conforme aux bonnes pratiques sur Debian 12.5.
