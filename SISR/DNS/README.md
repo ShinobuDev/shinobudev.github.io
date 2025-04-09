@@ -20,6 +20,7 @@
 11. [🛰️ Configuration d’un serveur DNS secondaire (slave)](#🛰️-9-configuration-dun-serveur-dns-secondaire-esclave)  
     - [Configuration du maître](#configuration-du-maitre)  
     - [Configuration de l’esclave](#configuration-de-lesclave)
+    - [Modifier le fichier `/etc/resolv.conf`](#Modifier-le-fichier-/etc/resolv.conf)
     - [Vérifications](#verifications)
 
 ---
@@ -29,7 +30,7 @@
 Avant de commencer, assure-toi que :
 
 - Tu disposes d’un accès `root` ou `sudo`.
-- Ton serveur a une IP statique sur ton réseau local (ex : `192.168.1.18`).
+- Et que tes serveurs primaire et secondaire ont une IP statique sur ton réseau local (ex : `172.17.219.182`, `172.17.219.212`).
 
 ---
 
@@ -38,7 +39,7 @@ Avant de commencer, assure-toi que :
 | Élément                      | Détail                                                                 |
 |-----------------------------|------------------------------------------------------------------------|
 | 📂 Fichiers de zones         | Ils **doivent être placés** dans `/var/cache/bind/`                  |
-| 🔗 `/etc/resolv.conf`       | Souvent un lien symbolique géré automatiquement par `systemd-resolved` |
+| 🔗 `/etc/resolv.conf`       | Doit être modifié a chaque fois que l'IP change dans un `named-checkconf -z` ou regarder [ici](#⛔-8-empêcher-la-réécriture-de-etcresolvconf) |
 
 ---
 
@@ -49,7 +50,7 @@ sudo apt update
 sudo apt install bind9
 ```
 
-### ✅ Vérification du statut
+### ✅ Vérification du statut de bind9
 
 ```bash
 systemctl status bind9
@@ -73,13 +74,15 @@ zone "@.local" {
     file "db.@.local";
 };
 
-zone "1.168.192.in-addr.arpa" {
+zone "17.172.in-addr.arpa" {
     type master;
-    file "db.192.168.1";
+    file "db.172.17";
 };
 ```
 
 > 🔁 Remplace **@** par ton nom de domaine personnalisé (ex. `monsite`, `reseau`, etc.).
+
+> ✅ En premier tu as un DNS normal (`zone "@.local"`) et en deuxième un DNS inversé (`zone "17.172.in-addr.arpa"`).
 
 ---
 
@@ -108,20 +111,24 @@ $TTL 604800
 @.local.       IN  NS  debianDNS.@.local.
 
 ; Host addresses
-debianDNS.@.local.      IN    A    192.168.1.18
-poste01.@.local.        IN    A    192.168.1.188
+debianDNS.@.local.      IN    A    172.17.219.212
+poste01.@.local.        IN    A    172.17.219.19
 ```
 
-> 🔁 Remplace `@` par ton nom de domaine.  
-> 🔁 Remplace **`debianDNS`** par le nom de ton serveur DNS (ex. `dns01`).  
+> 🔁 Remplace `@` par ton nom de domaine. 
+> 🔁 Remplace **`debianDNS`** par le nom de ton serveur DNS (ex. `dns01`). 
 > ⚠️ Utilise **soit des tabulations, soit des espaces**, mais pas les deux.
+
+> ⚠️ Après les `;`, tu as les légendes si tu veux les modifier.
+
+
 
 ---
 
-### 🔁 Fichier de zone **inverse** : `/var/cache/bind/db.192.168.1` <a id="Fichier-de-zone-inverse"></a>
+### 🔁 Fichier de zone **inverse** : `/var/cache/bind/db.172.17` <a id="Fichier-de-zone-inverse"></a>
 
 ```bash
-sudo nano /var/cache/bind/db.192.168.1
+sudo nano /var/cache/bind/db.172.17
 ```
 
 ➡️ Contenu :
@@ -129,7 +136,7 @@ sudo nano /var/cache/bind/db.192.168.1
 ```dns
 $TTL 86400
 
-1.168.192.in-addr.arpa.    IN    SOA    debianDNS.@.local.    admin.@.local.    (
+172.17.in-addr.arpa.    IN    SOA    debianDNS.@.local.    admin.@.local.    (
               1         ; Serial
          604800         ; Refresh
           86400         ; Retry
@@ -138,11 +145,11 @@ $TTL 86400
 )
 
 ; Name server
-1.168.192.in-addr.arpa.       IN    NS    debianDNS.@.local.
+17.172.in-addr.arpa.       IN    NS    debianDNS.@.local.
 
 ; PTR records
-18.168.192.in-addr.arpa.      IN    PTR   debianDNS.@.local.
-188.168.192.in-addr.arpa.     IN    PTR   poste01.@.local.
+182.219.17.172.in-addr.arpa.      IN    PTR   debianDNS.@.local.
+19.219.17.172.in-addr.arpa.     IN    PTR   poste01.@.local.
 ```
 
 > 🔁 Ici aussi, remplace `@` et `debianDNS` comme ci-dessus.
@@ -153,7 +160,7 @@ $TTL 86400
 sudo named-checkconf -z
 ```
 
-> ✅ Si aucun message d’erreur n’apparaît, tout est bon.
+> ✅ Si aucun message d’erreur n’apparaît, tout est bon. Sinon l'erreur sera indiqué avec la ligne et l'erreur.
 
 ---
 
@@ -185,18 +192,19 @@ systemctl status bind9
 
 ```bash
 dig debianDNS.@.local
+dig poste01.@.local
 ```
 
 ### Résolution **inverse** :
 
 ```bash
-dig -x 192.168.1.18
-dig -x 192.168.1.188
+dig -x 172.17.219.182
+dig -x 172.17.219.19
 ```
 
-> ✔️ Si la réponse contient :  
-`;; ->>HEADER<<- opcode: QUERY, status: NOERROR`  
-et une section **ANSWER** avec 1 ou plusieurs résultats → 🎉 **ça fonctionne !**
+> ✔️ Si les réponses contiennent :  
+`;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`  
+→ 🎉 **ça fonctionne !**
 
 ---
 
@@ -217,6 +225,8 @@ nameserver 127.0.0.1
 ```
 
 > 🔁 Remplace `@` par ton domaine.
+
+> 🔧 Tu es obliger de le modifier avec ton domaine et une ip locale (dans ce cas la) sinon ca ne marchera pas !
 
 ---
 
@@ -252,17 +262,17 @@ sudo kill <PID>
 zone "@.local" {
     type master;
     file "db.@.local";
-    allow-transfer { 192.168.1.19; }; // IP du serveur secondaire
+    allow-transfer { 172.17.219.212; }; // IP du serveur secondaire
 };
 
-zone "1.168.192.in-addr.arpa" {
+zone "17.172.in-addr.arpa" {
     type master;
-    file "db.192.168.1";
-    allow-transfer { 192.168.1.19; }; // IP du serveur secondaire
+    file "db.172.17";
+    allow-transfer { 172.17.219.212; }; // IP du serveur secondaire
 };
 ```
 
-> 🔁 Remplace `@` par ton domaine et `192.168.1.19` par l’IP de ton serveur secondaire.
+> 🔁 Remplace `@` par ton domaine et `172.17.219.212` par l’IP de ton serveur secondaire.
 
 🔄 Puis redémarre BIND9 :
 
@@ -294,28 +304,56 @@ sudo nano /etc/bind/named.conf.local
 ```conf
 zone "@.local" {
     type slave;
-    masters { 192.168.1.18; };  // IP du serveur maître
+    masters { 172.17.219.182; };  // IP du serveur maître
     file "/var/cache/bind/slave.db.@.local";
 };
 
 zone "1.168.192.in-addr.arpa" {
     type slave;
-    masters { 192.168.1.18; };
-    file "/var/cache/bind/slave.db.192.168.1";
+    masters { 172.17.219.182; };
+    file "/var/cache/bind/slave.db.172.17";
 };
 ```
 
 > 🔁 Remplace `@` par ton domaine.  
-> 🔁 `192.168.1.18` est l’IP du serveur primaire (master).  
+> 🔁 `172.17.219.182` est l’IP du serveur primaire (master).  
 > Les fichiers seront générés automatiquement dans `/var/cache/bind/`.
 
 ---
 
-#### 3. Redémarrer le service BIND9 sur le slave
+#### 3. Redémarrer le service BIND9
 
 ```bash
 sudo systemctl restart bind9
 ```
+
+---
+
+### ⚙️ Modifier le fichier `/etc/resolv.conf`: <a id="Modifier-le-fichier-/etc/resolv.conf"></a>
+
+```bash
+sudo nano /etc/resolv.conf
+```
+
+➡️ Exemple de contenu (pour le serveur primaire) :
+
+```
+domain @.local
+search @.local
+nameserver 127.0.0.1
+nameserver 172.17.219.182
+```
+
+➡️ Exemple de contenu (pour le serveur secondaire) :
+
+```
+domain @.local
+search @.local
+nameserver 127.0.0.1
+nameserver 172.17.219.212
+```
+
+> 🔁 Remplace `@` par ton domaine
 
 ---
 
@@ -330,11 +368,19 @@ ls /var/cache/bind/
 Tu dois y voir :
 
 - `slave.db.@.local`
-- `slave.db.192.168.1`
+- `slave.db.172.17`
 
-Puis teste avec `dig` :
+Puis teste avec `dig` sur les deux serveurs (master et slave) :
 
 ```bash
-dig @192.168.1.19 debianDNS.@.local
-dig @192.168.1.19 -x 192.168.1.18
+dig -x 172.17.219.212
+dig -x 172.17.219.182
+dig debian-AR-DNS.@.local
+dig slave.@.local
+dig poste01.@.local
 ```
+> 🔁 Remplace `@` par ton domaine.
+
+> ✔️ Si la réponse contient :  
+`;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1`  
+→ 🎉 **ça fonctionne !**
