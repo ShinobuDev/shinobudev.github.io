@@ -1,9 +1,31 @@
-# 🛰️ Configuration d’un Serveur DNS + Reverse DNS avec BIND9  
+# 🛰️ Configuration d’un Serveur DNS primaire et secondaire + Reverse DNS avec BIND9  
 📦 *Compatible & testé avec Debian 12.5 (Bookworm)*
 
 ---
 
-## 🎯 Prérequis
+# 📚 Sommaire
+
+1. [🎯 Prérequis](#🎯-prérequis)  
+2. [📁 Particularités Debian 12.5](#📁-particularités-debian-125)  
+3. [🧱 Installation de BIND9](#🧱-1-installation-de-bind9)  
+4. [🗂️ Création des zones DNS](#🗂️-2-création-des-zones-dns)  
+5. [📄 Création des fichiers de zone](#📄-3-création-des-fichiers-de-zone)  
+   - Fichier de zone direct  
+   - Fichier de zone inverse  
+6. [✅ Vérification des fichiers de configuration](#✅-4-vérification-des-fichiers-de-configuration)  
+7. [🔄 Rechargement et redémarrage du service](#🔄-5-redémarrage-ou-rechargement-du-service)  
+8. [🧪 Tester la résolution DNS](#🧪-6-tester-la-résolution-dns)  
+9. [⚙️ Définir le serveur DNS local](#⚙️-7-définir-le-serveur-dns-local)  
+10. [⛔ Empêcher la réécriture de resolv.conf](#⛔-8-empêcher-la-réécriture-de-etcresolvconf)  
+11. [🛰️ Configuration d’un serveur DNS secondaire (slave)](#🛰️-9-configuration-dun-serveur-dns-secondaire-esclave)  
+    - Configuration du maître  
+    - Configuration de l’esclave  
+    - Vérifications  
+12. [🔐 Sécurité et bonnes pratiques](#🔐-sécurité-et-bonnes-pratiques)
+
+---
+
+## 🎯 Prérequis <a id="#🎯-prérequis"></a>
 
 Avant de commencer, assure-toi que :
 
@@ -214,3 +236,106 @@ sudo kill <PID>
 ```
 
 > Remplace `<PID>` par le numéro du processus trouvé précédemment.
+
+---
+
+## 🛰️ 9. Configuration d’un serveur DNS secondaire (esclave)
+
+🎯 Le serveur secondaire va **répliquer automatiquement** les zones depuis le maître.
+
+---
+
+### 🧱 Sur le **serveur primaire (master)**
+
+#### 🔧 Modifier `/etc/bind/named.conf.local` pour autoriser le DNS secondaire :
+
+```conf
+zone "@.local" {
+    type master;
+    file "db.@.local";
+    allow-transfer { 192.168.1.19; }; // IP du serveur secondaire
+};
+
+zone "1.168.192.in-addr.arpa" {
+    type master;
+    file "db.192.168.1";
+    allow-transfer { 192.168.1.19; }; // IP du serveur secondaire
+};
+```
+
+> 🔁 Remplace `@` par ton domaine et `192.168.1.19` par l’IP de ton serveur secondaire.
+
+🔄 Puis redémarre BIND9 :
+
+```bash
+sudo systemctl restart bind9
+```
+
+---
+
+### 🧱 Sur le **serveur secondaire (slave)**
+
+#### 1. Installer BIND9 comme sur le serveur secondaire :
+
+```bash
+sudo apt update
+sudo apt install bind9
+```
+
+---
+
+#### 2. Créer les zones secondaires dans `/etc/bind/named.conf.local` :
+
+```bash
+sudo nano /etc/bind/named.conf.local
+```
+
+➡️ Ajouter :
+
+```conf
+zone "@.local" {
+    type slave;
+    masters { 192.168.1.18; };  // IP du serveur maître
+    file "/var/cache/bind/slave.db.@.local";
+};
+
+zone "1.168.192.in-addr.arpa" {
+    type slave;
+    masters { 192.168.1.18; };
+    file "/var/cache/bind/slave.db.192.168.1";
+};
+```
+
+> 🔁 Remplace `@` par ton domaine.  
+> 🔁 `192.168.1.18` est l’IP du serveur primaire (master).  
+> Les fichiers seront générés automatiquement dans `/var/cache/bind/`.
+
+---
+
+#### 3. Redémarrer le service BIND9 sur le slave
+
+```bash
+sudo systemctl restart bind9
+```
+
+---
+
+### ✅ Vérification
+
+Sur le **serveur secondaire**, vérifie que les fichiers sont bien récupérés :
+
+```bash
+ls /var/cache/bind/
+```
+
+Tu dois y voir :
+
+- `slave.db.@.local`
+- `slave.db.192.168.1`
+
+Puis teste avec `dig` :
+
+```bash
+dig @192.168.1.19 debianDNS.@.local
+dig @192.168.1.19 -x 192.168.1.18
+```
