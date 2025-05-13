@@ -6,14 +6,15 @@
 
 ## 📌 Sommaire
 
-1. [🎯 Objectifs du TP](#objectifs-du-tp)
-3. [🐋 1. Installation de Docker](#2-installation-de-docker)
-4. [📦 2. Lancer un conteneur Ubuntu interactif](#3-lancer-un-conteneur-ubuntu-interactif)
-5. [🔧 3. Gestion des conteneurs et des images (à venir - suite partie 2)](#5-à-suivre)
+1. [🎯 Objectifs du TP](#0)
+3. [🐋 1. Installation de Docker](#1)
+4. [📦 2. Lancer un conteneur Ubuntu interactif](#2)
+5. [🧱 3ème Partie : Création d'une image personnalisée)](#3)
+6. [🔐 4ème Partie : Rendre un service accessible depuis l’extérieur](#4)
 
 ---
 
-## 🎯 Objectifs du TP
+## 🎯 Objectifs du TP <a id="0"></a>
 
 Ce TP vise à te rendre autonome sur :
 
@@ -26,7 +27,7 @@ Ce TP vise à te rendre autonome sur :
 
 ---
 
-## 🐋 1. Installation de Docker
+## 🐋 1. Installation de Docker <a id="1"></a>
 
 Docker n’est pas présent par défaut dans les dépôts de base de Debian. Voici comment l’ajouter proprement :
 
@@ -80,7 +81,7 @@ docker run hello-world
 
 ---
 
-## 📦 2. Lancer un conteneur Ubuntu interactif
+## 📦 2. Lancer un conteneur Ubuntu interactif <a id="2"></a>
 
 Tu peux maintenant lancer un conteneur Ubuntu pour y exécuter des commandes :
 
@@ -164,7 +165,7 @@ docker top serveurUbuntu
 
 ---
 
-## 🧱 4ème Partie : Création d'une image personnalisée
+## 🧱 3ème Partie : Création d'une image personnalisée <a id="3"></a>
 
 ### 📦 a) Créer une nouvelle image à partir du conteneur actif
 
@@ -182,7 +183,7 @@ docker images
 
 ---
 
-## 🔐 5ème Partie : Rendre un service accessible depuis l’extérieur
+## 🔐 4ème Partie : Rendre un service accessible depuis l’extérieur <a id="4"></a>
 
 ### 🚀 a) Lancer un conteneur SSH en arrière-plan avec mappage de port
 
