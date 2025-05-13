@@ -23,8 +23,6 @@ Ce TP vise à te rendre autonome sur :
 * Le lancement d’un conteneur Ubuntu en mode interactif
 * La gestion de services via Docker
 
-> 🧠 Ce guide est aussi utile pour tes **révisions** de fin de module ou pour un partiel.
-
 ---
 
 ## 🐋 1. Installation de Docker <a id="1"></a>
