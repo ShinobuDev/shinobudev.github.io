@@ -1,212 +1,260 @@
-# 🐳 Exploitation Avancée de Docker sous Linux
+# 🐳 Guide Avancé Docker sous Linux — Partie 1/2
 
-📦 *Compatible Debian 12.5 & distributions basées sur Debian*
-
----
-
-## 📚 Sommaire
-
-1. [🔧 Prérequis & Environnement](#1)
-2. [🔍 Inspection des Réseaux Docker](#2)
-3. [🌐 Création d’un Réseau Docker Personnalisé](#3)
-4. [📡 Connexion des Conteneurs à un Réseau](#4)
-5. [🔁 Connexion d’un Conteneur à Plusieurs Réseaux](#5)
-6. [📤 Communication entre Conteneurs](#6)
-7. [🧯 Suppression de Réseaux](#7)
-8. [📦 Utilisation des Volumes Docker](#8)
-9. [🚀 Tests & Commandes Complètes](#9)
+📘 *Basé sur Debian 11.x, compatible Debian 12.5*
 
 ---
 
-<a name="1"></a>
+## 📌 Sommaire
 
-## 🔧 1. Prérequis & Environnement
+1. [🎯 Objectifs du TP](#objectifs-du-tp)
+3. [🐋 1. Installation de Docker](#2-installation-de-docker)
+4. [📦 2. Lancer un conteneur Ubuntu interactif](#3-lancer-un-conteneur-ubuntu-interactif)
+5. [🔧 3. Gestion des conteneurs et des images (à venir - suite partie 2)](#5-à-suivre)
 
-Avant toute manipulation :
+---
+
+## 🎯 Objectifs du TP
+
+Ce TP vise à te rendre autonome sur :
+
+* Le déploiement d’une machine Debian 11.x
+* L’installation complète de Docker
+* Le lancement d’un conteneur Ubuntu en mode interactif
+* La gestion de services via Docker
+
+> 🧠 Ce guide est aussi utile pour tes **révisions** de fin de module ou pour un partiel.
+
+---
+
+## 🐋 1. Installation de Docker
+
+Docker n’est pas présent par défaut dans les dépôts de base de Debian. Voici comment l’ajouter proprement :
+
+### a) Préparation de l’environnement
 
 ```bash
 sudo apt update
-sudo apt install docker.io -y
-sudo systemctl start docker
+sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+```
+
+### b) Ajout de la clé GPG officielle de Docker
+
+```bash
+curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
+```
+> La variable ≪ $(. /etc/os-release; echo "$ID") ≫ renvoie la distribution. Attention à l’espace
+  entre ≪ / ≫ et le ≪ . ≫ et de meme entre ≪ add ≫ et ≪ - ≫.
+
+### c) Ajout du dépôt Docker
+
+```bash
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
+```
+
+### d) Mise à jour des dépôts et installation
+
+```bash
+sudo apt update
+sudo apt install docker-ce
+```
+
+### e) Activer Docker au démarrage
+
+```bash
 sudo systemctl enable docker
 ```
 
-> ⚠️ Tous les exemples ci-dessous supposent que Docker est installé et fonctionnel sur votre machine.
+### f) Vérifier l’installation
+
+```bash
+docker version
+```
+
+### g) Tester Docker avec le conteneur de test officiel
+
+```bash
+docker run hello-world
+```
+
+> 🟢 Si tout se passe bien, Docker affiche un message de bienvenue.
 
 ---
 
-<a name="2"></a>
+## 📦 2. Lancer un conteneur Ubuntu interactif
 
-## 🔍 2. Inspection des Réseaux Docker
+Tu peux maintenant lancer un conteneur Ubuntu pour y exécuter des commandes :
 
-Lister tous les réseaux existants :
-
-```bash
-docker network ls
-```
-
-Inspecter un réseau par défaut (`bridge`, `host`, ou `none`) :
+### 🔄 a) Commande de lancement :
 
 ```bash
-docker network inspect bridge
+docker run --name serveurUbuntu -it ubuntu
 ```
+
+### Explication des options :
+
+| Option   | Description                                     |
+| -------- | ----------------------------------------------- |
+| `--name` | Nomme le conteneur pour le retrouver facilement |
+| `-i`     | Active l’entrée standard interactive (stdin)    |
+| `-t`     | Fournit un pseudo-terminal (tty)                |
+
+> 🧑‍💻 Tu te retrouves dans un shell Ubuntu **dans le conteneur**.
 
 ---
 
-<a name="3"></a>
-
-## 🌐 3. Création d’un Réseau Docker Personnalisé
-
-Créer un réseau de type **bridge** personnalisé :
+### 🔄 b) Mettre à jour le système et y installer le service ssh :
 
 ```bash
-docker network create --driver bridge monreseau
+apt update
+apt install openssh-server
 ```
-
-Vérifier la création :
-
-```bash
-docker network ls
-```
-
-Inspecter le réseau :
-
-```bash
-docker network inspect monreseau
-```
+> On va créer également un utilisateur pour pouvoir se connecter au service ultérieurement.
+  ```bash
+  adduser « votre nom de user »
+  ```
 
 ---
 
-<a name="4"></a>
+### 🔄 c) Arrêter un conteneur
 
-## 📡 4. Connexion des Conteneurs à un Réseau
-
-Créer un conteneur en le connectant directement à un réseau spécifique :
+Pour arrêter un conteneur en cours d’exécution de manière interactive, il suffit de taper :
 
 ```bash
-docker run -dit --name conteneur1 --network monreseau debian
+exit
 ```
 
-Tester sa connectivité :
-
-```bash
-docker exec -it conteneur1 bash
-apt update && apt install iputils-ping -y
-ping conteneur1
-```
+Cela termine la session interactive et arrête le conteneur.
 
 ---
 
-<a name="5"></a>
+### 🔁 d) Relancer un conteneur existant
 
-## 🔁 5. Connexion d’un Conteneur à Plusieurs Réseaux
-
-Créer un second réseau :
+Pour redémarrer le conteneur précédemment arrêté et y accéder de nouveau en mode interactif :
 
 ```bash
-docker network create secondreseau
+docker start serveurUbuntu
+docker attach serveurUbuntu
 ```
+> 💻 Il faut lancer un **PuTTY** pour utiliser l'image Docker ET pouvoir faire un commande docker top.
 
-Créer un second conteneur :
-
-```bash
-docker run -dit --name conteneur2 --network secondreseau debian
-```
-
-Puis connecter ce conteneur au premier réseau :
-
-```bash
-docker network connect monreseau conteneur2
-```
-
-Maintenant, `conteneur2` est connecté à **deux réseaux**.
 
 ---
 
-<a name="6"></a>
+### 🧾 e) Visualiser les modifications apportées au conteneur
 
-## 📤 6. Communication entre Conteneurs
-
-Tester la communication inter-conteneurs :
+Pour inspecter les différences entre l’image d’origine et les modifications réalisées dans le conteneur :
 
 ```bash
-docker exec -it conteneur1 bash
-ping conteneur2
+docker diff serveurUbuntu
 ```
 
-> 🎯 Les conteneurs sur un même réseau Docker peuvent se pinguer par **nom de conteneur**.
+Cette commande affiche les fichiers modifiés, ajoutés ou supprimés à l'intérieur du conteneur.
 
 ---
 
-<a name="7"></a>
+### 📊 f) Lister les processus actifs dans le conteneur
 
-## 🧯 7. Suppression de Réseaux
-
-⚠️ Un réseau ne peut pas être supprimé tant qu’un conteneur y est encore connecté.
-
-Déconnecter un conteneur :
+Pour voir tous les processus en cours d’exécution à l’intérieur du conteneur :
 
 ```bash
-docker network disconnect monreseau conteneur1
+docker top serveurUbuntu
 ```
 
-Supprimer un réseau :
+> 💡 Si le service SSH est activé dans le conteneur, vous le verrez listé dans les processus.
+
+---
+
+## 🧱 4ème Partie : Création d'une image personnalisée
+
+### 📦 a) Créer une nouvelle image à partir du conteneur actif
 
 ```bash
-docker network rm monreseau
+docker commit serveurUbuntu ubuntu:ssh
+```
+
+Cela crée une nouvelle image basée sur l’état actuel du conteneur.
+
+Pour vérifier que l’image a bien été créée :
+
+```bash
+docker images
 ```
 
 ---
 
-<a name="8"></a>
+## 🔐 5ème Partie : Rendre un service accessible depuis l’extérieur
 
-## 📦 8. Utilisation des Volumes Docker
+### 🚀 a) Lancer un conteneur SSH en arrière-plan avec mappage de port
 
-Créer un volume :
+Crée un nouveau conteneur basé sur l’image personnalisée `ubuntu:ssh` avec SSH actif, et mappe le port 22222 de l’hôte vers le port 22 du conteneur :
 
 ```bash
-docker volume create monvolume
+docker run -d -p @IPMachineHôte:22222:22 --name serveurssh ubuntu:ssh /usr/sbin/sshd -D
 ```
 
-Créer un conteneur avec ce volume monté :
+#### 🧩 Explication des options :
+
+* `-d` : exécute le conteneur en **mode détaché** (arrière-plan).
+* `-p` : réalise le **mappage de ports** `hôte:conteneur`.
+* `@IPMachineHôte` : adresse IP de l'hôte (à remplacer).
+* `22222` : port ouvert sur l'hôte.
+* `22` : port SSH dans le conteneur.
+* `/usr/sbin/sshd -D` : lance le service SSH en **premier plan** (Docker arrête un conteneur si le processus principal se termine).
+
+> 📌 Remarque :
+>
+> * Si tu omets l’adresse IP de l’hôte, Docker n’écoutera que sur `localhost`.
+> * Si tu omets le port de l’hôte, Docker choisira un port aléatoire disponible.
+
+### 🔍 Vérifier que tout fonctionne :
 
 ```bash
-docker run -dit --name conteneur3 -v monvolume:/data debian
+docker ps
 ```
 
-Vérifier l’existence du volume :
+Regarde la colonne **PORTS** pour t'assurer que le mappage `@IPMachineHôte:22222->22/tcp` est bien en place.
+
+---
+
+### 🔗 b) Se connecter au conteneur en SSH
+
+Une fois que le conteneur `serveurssh` tourne, tu peux te connecter depuis n’importe quelle machine sur le réseau.
+
+#### ✅ Exemple sous Linux :
 
 ```bash
-docker volume ls
-docker volume inspect monvolume
+ssh user@@IPMachineHôte -p 22222
+```
+
+> 🔁 Remplace `user` par un utilisateur valide dans le conteneur, user a été créer [ici](#ici).
+> 🔁 Remplace `@IPMachineHôte` par l’IP de la machine qui héberge Docker
+
+#### ❌ Déconnexion :
+
+```bash
+exit
 ```
 
 ---
 
-<a name="9"></a>
+#### 🪟 Exemple sous Windows :
 
-## 🚀 9. Tests & Commandes Complètes
+Sous Windows, utilise un client SSH comme [PuTTY](https://www.putty.org/) :
 
-Voici un script de test complet pour tout vérifier :
+* Adresse IP : `@IPMachineHôte`
+* Port : `22222`
+* Protocole : `SSH`
+
+Clique sur **"Open"** pour établir la connexion.
+
+---
+
+### 📜 c) Afficher les logs du conteneur
+
+Pour consulter les journaux du conteneur `serveurssh` :
 
 ```bash
-# Création des réseaux
-docker network create netA
-docker network create netB
-
-# Création des conteneurs
-docker run -dit --name test1 --network netA debian
-docker run -dit --name test2 --network netB debian
-
-# Connexion multiple
-docker network connect netA test2
-
-# Ping entre conteneurs
-docker exec -it test1 bash
-apt update && apt install iputils-ping -y
-ping test2
-
-# Gestion de volumes
-docker volume create testvol
-docker run -dit --name voltest -v testvol:/app debian
+docker logs serveurssh
 ```
+
+> 📭 Si tout fonctionne normalement, cette commande ne renverra **aucune sortie**.
