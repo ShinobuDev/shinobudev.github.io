@@ -1,4 +1,4 @@
-# 🚀 TP Docker : Déploiement d’un site Web statique et dynamique (corrigé et stylisé)
+# 🚀 TP Docker 2/2 : Déploiement d’un site Web statique et dynamique
 
 ## 📚 BTS SIO1 – SupAvenir Sainte-Ursule – Bloc 1
 
