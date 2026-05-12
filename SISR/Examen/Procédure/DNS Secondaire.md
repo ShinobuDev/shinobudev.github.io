@@ -1,8 +1,7 @@
 # Procédure d'installation — Serveur DNS secondaire Linux (BIND9)
-**Laboratoire Galaxy Swiss Bourdin — Projet BTS SIO SISR**  
-Serveur : DNS-LINUX | OS : Debian 12 (Bookworm)  
+Serveur : DNS-LINUX | OS : Debian 13 (Trixie)  
 DNS maître : LABANNU1 Windows AD — 172.16.0.105  
-Date : Avril 2026 | Version : 1.0
+Date : Mai 2026
 
 ---
 
@@ -35,14 +34,13 @@ Date : Avril 2026 | Version : 1.0
 | Paramètre       | Valeur                             |
 |-----------------|------------------------------------|
 | Nom d'hôte      | `dns-linux.gsb.local`              |
-| Adresse IP      | À définir (ex: `172.16.0.X/17`)   |
+| Adresse IP      | À définir (ex: `172.16.0.11/17`)   |
 | Passerelle      | `172.16.127.254`                   |
 | DNS maître      | `172.16.0.105` (LABANNU1 AD)       |
-| DNS secondaire  | `172.16.0.106` (LABANNU2 AD)       |
 | Domaine         | `gsb.local`                        |
 | Zone à répliquer | `gsb.local`                       |
-| OS              | Debian 12 Bookworm                 |
-| Rôle            | DNS secondaire (esclave BIND9)     |
+| OS              | Debian 13 trixie                   |
+| Rôle            | DNS secondaire (slave BIND9)       |
 
 ### 1.2 Configuration réseau PHASE 1 (vmbr0, DHCP)
 
@@ -65,7 +63,7 @@ ping -c 3 8.8.8.8    # vérifier l'accès Internet
 
 ```bash
 hostnamectl set-hostname dns-linux.gsb.local
-apt update && apt upgrade -y
+apt update -y
 apt install -y vim net-tools ufw dnsutils
 ```
 
@@ -115,7 +113,7 @@ options {
     // ================================================================
     // Écoute sur toutes les interfaces
     // ================================================================
-    listen-on { any; };
+    listen-on { };
     listen-on-v6 { none; };
 
     // ================================================================
@@ -123,7 +121,7 @@ options {
     // LABANNU1 = maître, LABANNU2 = secondaire AD existant
     // ================================================================
     allow-transfer { none; };     // interdit par défaut
-    allow-notify  { 172.16.0.105; };  // LABANNU1 peut envoyer des NOTIFY
+    allow-query { yes; };
 
     // ================================================================
     // Résolution récursive — autorisée seulement pour le réseau GSB
@@ -169,7 +167,6 @@ zone "gsb.local" {
     type slave;
     masters { 172.16.0.105; };      // LABANNU1 Windows AD
     file "/var/cache/bind/gsb.local.slave";   // fichier de zone local
-    allow-notify { 172.16.0.105; }; // LABANNU1 peut notifier une MàJ
 };
 
 // ================================================================
@@ -180,12 +177,8 @@ zone "16.172.in-addr.arpa" {
     type slave;
     masters { 172.16.0.105; };
     file "/var/cache/bind/16.172.in-addr.arpa.slave";
-    allow-notify { 172.16.0.105; };
 };
 ```
-
-> **Note :** `type slave` est l'ancienne syntaxe BIND9 (toujours valide sur Debian 12).
-> L'équivalent moderne est `type secondary` — les deux fonctionnent.
 
 ### 3.3 Permissions sur le répertoire de cache
 
@@ -206,6 +199,11 @@ named-checkconf
 systemctl restart bind9
 systemctl enable bind9
 systemctl status bind9
+
+# Si restart bind9 ne marche pas
+systemctl restart named
+systemctl enable named
+systemctl status named
 ```
 
 ---
@@ -237,7 +235,7 @@ iface lo inet loopback
 
 auto ens18
 iface ens18 inet static
-    address     172.16.0.X         # ← à définir avec le groupe
+    address     172.16.0.11         # ← à définir avec le groupe
     netmask     255.255.128.0
     gateway     172.16.127.254
     dns-nameservers 172.16.0.105 172.16.0.106
@@ -257,18 +255,13 @@ nameserver 172.16.0.105
 nameserver 172.16.0.106
 ```
 
-> Si `systemd-resolved` écrase ce fichier :
-> ```bash
-> systemctl disable --now systemd-resolved
-> ```
-
 ### 4.4 Appliquer et vérifier
 
 ```bash
 systemctl restart networking
 
 ip addr show ens18
-# → doit afficher 172.16.0.X/17
+# → doit afficher 172.16.0.11/17
 
 ping -c 3 172.16.127.254    # passerelle
 ping -c 3 172.16.0.105      # LABANNU1
@@ -278,7 +271,7 @@ ping -c 3 172.16.0.105      # LABANNU1
 
 ## 5. Autorisation du transfert de zone sur LABANNU1
 
-> **À faire par Théo & Valentin** sur le serveur Windows AD LABANNU1.
+> À faire  sur le serveur Windows AD LABANNU1.
 
 ### 5.1 Autoriser le transfert de zone vers DNS-LINUX
 
@@ -288,7 +281,7 @@ Sur LABANNU1 (Windows Server), dans le **Gestionnaire DNS** :
 2. Onglet **Transferts de zone**
 3. Cocher **Autoriser les transferts de zone**
 4. Sélectionner **Uniquement vers les serveurs répertoriés ici**
-5. Ajouter l'IP de DNS-LINUX : `172.16.0.X`
+5. Ajouter l'IP de DNS-LINUX : `172.16.0.11`
 6. Valider
 
 ### 5.2 Activer les notifications NOTIFY
@@ -297,7 +290,7 @@ Toujours dans les propriétés de la zone `gsb.local` :
 
 1. Onglet **Transferts de zone** → bouton **Notifier**
 2. Cocher **Notifier automatiquement**
-3. Ajouter l'IP `172.16.0.X` (DNS-LINUX)
+3. Ajouter l'IP `172.16.0.11` (DNS-LINUX)
 4. Valider
 
 ### 5.3 Ouvrir le port TCP 53 sur le pare-feu Windows
@@ -310,7 +303,7 @@ New-NetFirewallRule -DisplayName "DNS Zone Transfer to DNS-LINUX" `
   -Direction Inbound `
   -Protocol TCP `
   -LocalPort 53 `
-  -RemoteAddress 172.16.0.X `
+  -RemoteAddress 172.16.0.11 `
   -Action Allow
 ```
 
@@ -357,22 +350,19 @@ dig @172.16.0.105 gsb.local AXFR
 
 ```bash
 # Tester depuis DNS-LINUX lui-même
-dig @localhost messagelab.gsb.local
-# → doit retourner l'IP de MESSAGELAB (172.16.0.3)
+dig @localhost gsb.local
+# → doit retourner l'IP de GSB
 
 dig @localhost labannu1.gsb.local
 # → doit retourner 172.16.0.105
 
 # Tester depuis un autre poste du réseau GSB
-dig @172.16.0.X messagelab.gsb.local
+dig @172.16.0.11 gsb.local
 ```
 
 ### 7.2 Résolution inverse (IP → nom)
 
 ```bash
-dig @localhost -x 172.16.0.3
-# → doit retourner messagelab.gsb.local
-
 dig @localhost -x 172.16.0.105
 # → doit retourner labannu1.gsb.local
 ```
@@ -390,7 +380,7 @@ dig @localhost google.com
 ```bash
 # Comparer le numéro de série de la zone entre maître et esclave
 dig @172.16.0.105 gsb.local SOA   # numéro de série sur LABANNU1
-dig @172.16.0.X   gsb.local SOA   # numéro de série sur DNS-LINUX
+dig @172.16.0.11   gsb.local SOA   # numéro de série sur DNS-LINUX
 
 # → les deux numéros de série doivent être identiques
 ```
@@ -403,7 +393,7 @@ dig @172.16.0.X   gsb.local SOA   # numéro de série sur DNS-LINUX
 ufw insert 1 deny out to 172.16.0.105 port 53
 
 # Tester que DNS-LINUX répond toujours aux requêtes (depuis la zone en cache)
-dig @172.16.0.X messagelab.gsb.local
+dig @172.16.0.11 gsb.local
 # → doit toujours fonctionner (zone en cache local)
 
 # Rétablir la règle
@@ -468,5 +458,5 @@ nslookup messagelab.gsb.local 172.16.0.X
 ---
 
 *Document réalisé dans le cadre du projet GSB — BTS SIO option SISR*  
-*DNS maître : LABANNU1 Windows AD (172.16.0.105) — Responsables : Théo & Valentin*  
-*DNS secondaire Linux : BIND9 | Référence : CERTA GSB v1.2*
+*DNS maître : LABANNU1 Windows AD (172.16.0.105)
+*DNS secondaire Linux : BIND9
