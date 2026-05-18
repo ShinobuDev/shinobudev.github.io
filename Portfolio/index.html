@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Adrien Robin — Portfolio · BTS SIO SISR</title>
+<meta name="description" content="Portfolio d'Adrien Robin — BTS SIO SISR en alternance chez SOLIHA. Cap après le BTS : assistant d'éducation." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&family=Manrope:wght@300..700&display=swap" rel="stylesheet" />
+<style>
+  /* ──────────────────────────────────────────────────
+     RESET + TOKENS
+  ────────────────────────────────────────────────── */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:        #0a0a0b;
+    --bg-soft:   #121214;
+    --bg-elev:   #18181b;
+    --ink:       #ece7dd;
+    --ink-soft:  #a8a39a;
+    --ink-mute:  #6b6660;
+    --line:      #2a2926;
+    --red:       #ff2c2c;
+    --red-soft:  #ff6b6b;
+    --amber:     #e8b04a;
+    --green:     #8fbf7a;
+
+    --f-display: "Fraunces", "Times New Roman", serif;
+    --f-mono:    "JetBrains Mono", ui-monospace, monospace;
+    --f-body:    "Manrope", system-ui, sans-serif;
+
+    --pad: clamp(1.2rem, 4vw, 4rem);
+    --maxw: 1400px;
+  }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-weight: 300;
+    line-height: 1.55;
+    overflow-x: hidden;
+    cursor: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (hover:none){ body { cursor:auto; } }
+
+  /* Selection */
+  ::selection { background: var(--red); color: var(--bg); }
+
+  /* Grain overlay */
+  body::before {
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: .07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Scanline subtle vignette */
+  body::after {
+    content:"";
+    position: fixed; inset:0; pointer-events:none; z-index: 8000;
+    background: radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%);
+  }
+
+  /* ──────────────────────────────────────────────────
+     CUSTOM CURSOR
+  ────────────────────────────────────────────────── */
+  .cursor, .cursor-ring {
+    position: fixed; top:0; left:0; pointer-events:none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+  .cursor {
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    transition: transform .12s ease, background .2s ease, width .2s, height .2s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--ink-soft);
+    border-radius: 50%;
+    transition: width .25s cubic-bezier(.3,.7,.2,1), height .25s cubic-bezier(.3,.7,.2,1), border-color .2s, background .2s, opacity .2s;
+    mix-blend-mode: difference;
+  }
+  body.is-hovering .cursor { transform: translate(-50%,-50%) scale(0); }
+  body.is-hovering .cursor-ring {
+    width: 70px; height: 70px;
+    border-color: var(--red);
+    background: rgba(255,44,44,.06);
+  }
+  @media (hover:none){ .cursor, .cursor-ring { display:none; } }
+
+  /* ──────────────────────────────────────────────────
+     NAV
+  ────────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.3rem var(--pad);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10,10,11,.55);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease;
+  }
+  nav.scrolled { border-bottom-color: var(--line); }
+  .nav-logo {
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--ink);
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .nav-logo .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(143,191,122,.6);
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(143,191,122,.5);}
+    70%{ box-shadow: 0 0 0 12px rgba(143,191,122,0);}
+    100%{box-shadow:0 0 0 0 rgba(143,191,122,0);}
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+    font-family: var(--f-mono);
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .16em;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .25s ease;
+    display: flex; align-items: baseline; gap: .4rem;
+  }
+  .nav-links a span { color: var(--ink-mute); font-size:.62rem; }
+  .nav-links a:hover { color: var(--red); }
+  @media (max-width: 760px) {
+    .nav-links { display:none; }
+  }
+
+  /* ──────────────────────────────────────────────────
+     LAYOUT WRAPPERS
+  ────────────────────────────────────────────────── */
+  section {
+    padding: clamp(5rem, 11vw, 9rem) var(--pad);
+    max-width: var(--maxw);
+    margin: 0 auto;
+    position: relative;
+  }
+  .section-label {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: var(--red);
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .section-label::before {
+    content:""; width: 28px; height: 1px; background: var(--red);
+  }
+  .section-title {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -.02em;
+    margin-bottom: 3rem;
+    font-variation-settings: "SOFT" 30, "opsz" 144;
+  }
+
+  /* ──────────────────────────────────────────────────
+     HERO
+  ────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    padding-top: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-tag {
+    font-family: var(--f-mono);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: var(--ink-soft);
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: .8rem;
+    opacity: 0; animation: rise .9s .1s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hero-tag::before {
+    content:"⌖"; color: var(--red); font-size: 1rem;
+  }
+  .hero-name {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(4rem, 16vw, 14rem);
+    line-height: .88;
+    letter-spacing: -.04em;
+    font-variation-settings: "SOFT" 50, "opsz" 144;
+  }
+  .hero-name .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(80px);
+    animation: rise 1.1s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hero-name .word:nth-child(1){ animation-delay:.25s; }
+  .hero-name .word:nth-child(2){
+    animation-delay:.4s;
+    font-style: italic;
+    color: var(--red);
+    font-variation-settings: "SOFT" 100, "opsz" 144;
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-meta {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    max-width: 800px;
+    opacity: 0;
+    animation: rise 1s .9s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hero-meta div { font-family: var(--f-mono); font-size:.74rem; }
+  .hero-meta .k {
+    text-transform: uppercase; letter-spacing: .18em;
+    color: var(--ink-mute); margin-bottom: .4rem;
+  }
+  .hero-meta .v { color: var(--ink); line-height: 1.5; }
+  @media (max-width: 700px) {
+    .hero-meta { grid-template-columns: 1fr 1fr; }
+  }
+  .hero-statement {
+    margin-top: 4rem;
+    max-width: 640px;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--ink-soft);
+    line-height: 1.5;
+    opacity: 0;
+    animation: rise 1s 1.2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .hero-statement em {
+    font-family: var(--f-display);
+    font-style: italic;
+    color: var(--ink);
+    font-variation-settings: "SOFT" 50, "opsz" 144;
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem; right: var(--pad);
+    font-family: var(--f-mono); font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .2em;
+    color: var(--ink-mute);
+    display: flex; align-items: center; gap: .8rem;
+    opacity: 0; animation: rise 1s 1.6s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .scroll-cue::after {
+    content:""; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--ink-mute) 50%, transparent 50%);
+    background-size: 1px 6px;
+    animation: drop 1.6s ease-in-out infinite;
+  }
+  @keyframes drop {
+    0%,100% { transform: translateY(-4px); opacity: .3; }
+    50% { transform: translateY(4px); opacity: 1; }
+  }
+
+  /* ──────────────────────────────────────────────────
+     MARQUEE
+  ────────────────────────────────────────────────── */
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    padding: 1.6rem 0;
+    margin: 0;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem;
+    white-space: nowrap;
+    animation: scroll 38s linear infinite;
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    color: var(--ink-soft);
+    font-variation-settings: "SOFT" 100, "opsz" 144;
+  }
+  .marquee-track span:nth-child(even) {
+    color: var(--red);
+  }
+  .marquee-track span { display: flex; align-items: center; gap: 3rem; }
+  .marquee-track span::after {
+    content:"✦"; color: var(--ink-mute); font-style: normal;
+    font-family: var(--f-body); font-size: 1rem;
+  }
+  @keyframes scroll {
+    to { transform: translateX(-50%); }
+  }
+
+  /* ──────────────────────────────────────────────────
+     ABOUT
+  ────────────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  @media (max-width: 900px){ .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+  .about-text p {
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+  }
+  .about-text p em {
+    font-family: var(--f-display);
+    font-style: italic;
+    color: var(--ink);
+    font-variation-settings: "SOFT" 80, "opsz" 144;
+  }
+  .about-text strong { color: var(--red); font-weight: 400; }
+  .about-card {
+    border: 1px solid var(--line);
+    padding: 2.2rem;
+    background: linear-gradient(180deg, rgba(255,44,44,.02), transparent);
+    position: relative;
+  }
+  .about-card::before {
+    content:""; position:absolute; top:-1px; left:-1px;
+    width: 24px; height: 24px;
+    border-top: 1px solid var(--red); border-left: 1px solid var(--red);
+  }
+  .about-card::after {
+    content:""; position:absolute; bottom:-1px; right:-1px;
+    width: 24px; height: 24px;
+    border-bottom: 1px solid var(--red); border-right: 1px solid var(--red);
+  }
+  .about-card h3 {
+    font-family: var(--f-mono);
+    font-size: .74rem; text-transform: uppercase; letter-spacing: .2em;
+    color: var(--red); margin-bottom: 1.4rem; font-weight: 500;
+  }
+  .about-card ul { list-style: none; }
+  .about-card li {
+    display: flex; justify-content: space-between;
+    padding: .8rem 0; border-bottom: 1px dashed var(--line);
+    font-family: var(--f-mono); font-size: .82rem;
+  }
+  .about-card li:last-child { border-bottom: none; }
+  .about-card li span:first-child { color: var(--ink-mute); }
+  .about-card li span:last-child { color: var(--ink); text-align: right; }
+
+  /* ──────────────────────────────────────────────────
+     COMPETENCES
+  ────────────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .skill-cell {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 2.2rem;
+    background: var(--bg);
+    transition: background .3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-cell:hover { background: var(--bg-soft); }
+  .skill-cell::after {
+    content:""; position: absolute; top:0; left:0; right:0;
+    height: 1px; background: var(--red);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .skill-cell:hover::after { transform: scaleX(1); }
+  .skill-num {
+    font-family: var(--f-mono); font-size: .7rem;
+    color: var(--ink-mute); letter-spacing: .14em;
+    margin-bottom: 1.6rem;
+  }
+  .skill-cat {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    margin-bottom: 1.3rem;
+    font-variation-settings: "SOFT" 80, "opsz" 144;
+  }
+  .skill-list { list-style: none; }
+  .skill-list li {
+    font-family: var(--f-mono); font-size: .82rem;
+    color: var(--ink-soft); padding: .25rem 0;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .skill-list li::before {
+    content:"›"; color: var(--red); font-family: var(--f-body);
+  }
+
+  /* ──────────────────────────────────────────────────
+     FORMATION (TIMELINE)
+  ────────────────────────────────────────────────── */
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 3rem;
+    padding: 2.2rem 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+    position: relative;
+    transition: background .3s ease, padding-left .3s ease;
+  }
+  .timeline-item:last-child { border-bottom: 1px solid var(--line); }
+  .timeline-item:hover { padding-left: 1rem; background: var(--bg-soft); }
+  .timeline-item .yr {
+    font-family: var(--f-mono);
+    font-size: .82rem;
+    color: var(--red);
+    letter-spacing: .1em;
+    padding-top: .4rem;
+  }
+  .timeline-item h3 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.3vw, 2rem);
+    line-height: 1.1;
+    margin-bottom: .6rem;
+    font-variation-settings: "SOFT" 60, "opsz" 144;
+  }
+  .timeline-item .where {
+    font-family: var(--f-mono); font-size: .78rem;
+    color: var(--ink-soft); text-transform: uppercase; letter-spacing: .14em;
+    margin-bottom: .8rem;
+  }
+  .timeline-item p {
+    color: var(--ink-soft); font-size: .98rem; max-width: 600px;
+  }
+  .timeline-item.active::before {
+    content:"EN COURS"; position: absolute;
+    right: 0; top: 2.4rem;
+    font-family: var(--f-mono); font-size: .68rem;
+    letter-spacing: .2em; color: var(--green);
+    border: 1px solid var(--green); padding: .25rem .6rem;
+  }
+  .timeline-item.partial::before {
+    content:"RÉORIENTATION"; position: absolute;
+    right: 0; top: 2.4rem;
+    font-family: var(--f-mono); font-size: .68rem;
+    letter-spacing: .2em; color: var(--amber);
+    border: 1px solid var(--amber); padding: .25rem .6rem;
+  }
+  @media (max-width: 700px){
+    .timeline-item { grid-template-columns: 1fr; gap: .6rem; }
+    .timeline-item .yr { padding-top: 0; }
+  }
+
+  /* ──────────────────────────────────────────────────
+     BLOCKS BTS
+  ────────────────────────────────────────────────── */
+  .blocks-intro {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    align-items: end;
+  }
+  @media (max-width: 900px){ .blocks-intro { grid-template-columns: 1fr; } }
+  .blocks-intro p {
+    color: var(--ink-soft); font-size: 1.05rem;
+    max-width: 540px; line-height: 1.6;
+  }
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 1.3rem;
+  }
+  .block {
+    border: 1px solid var(--line);
+    padding: 2.4rem 2rem;
+    position: relative;
+    background: var(--bg);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, background .3s;
+    overflow: hidden;
+  }
+  .block::before {
+    content:""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 0%, rgba(255,44,44,.08), transparent 60%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .block:hover { transform: translateY(-4px); border-color: var(--red); background: var(--bg-soft); }
+  .block:hover::before { opacity: 1; }
+  .block-id {
+    font-family: var(--f-mono);
+    font-size: .7rem;
+    text-transform: uppercase; letter-spacing: .22em;
+    color: var(--red); margin-bottom: 1.4rem;
+    display: flex; justify-content: space-between;
+  }
+  .block-id .num {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 3.5rem;
+    line-height: 1; color: var(--ink-mute);
+    letter-spacing: 0;
+    font-variation-settings: "SOFT" 100, "opsz" 144;
+  }
+  .block:hover .block-id .num { color: var(--red); transition: color .4s; }
+  .block h3 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.65rem;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    font-variation-settings: "SOFT" 60, "opsz" 144;
+    padding-right: 3rem;
+  }
+  .block .desc {
+    color: var(--ink-soft); font-size: .95rem;
+    margin-bottom: 1.6rem; line-height: 1.55;
+  }
+  .block .proj {
+    font-family: var(--f-mono); font-size: .72rem;
+    text-transform: uppercase; letter-spacing: .14em;
+    color: var(--ink-mute);
+    padding-top: 1.2rem;
+    border-top: 1px dashed var(--line);
+  }
+  .block .proj strong {
+    color: var(--ink); font-weight: 400;
+    display: block; margin-top: .35rem;
+  }
+
+  /* ──────────────────────────────────────────────────
+     PROJETS DETAIL
+  ────────────────────────────────────────────────── */
+  .projects-detail {
+    display: grid; gap: 4rem;
+  }
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+    padding-top: 3rem;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 900px){ .project { grid-template-columns: 1fr; } }
+  .project-meta .tag {
+    font-family: var(--f-mono); font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .2em;
+    color: var(--red); margin-bottom: 1rem;
+  }
+  .project h3 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1; letter-spacing: -.01em;
+    margin-bottom: 1.2rem;
+    font-variation-settings: "SOFT" 60, "opsz" 144;
+  }
+  .project .stack {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    margin-top: 1.4rem;
+  }
+  .project .stack span {
+    font-family: var(--f-mono); font-size: .68rem;
+    padding: .35rem .7rem; border: 1px solid var(--line);
+    color: var(--ink-soft); letter-spacing: .08em;
+  }
+  .project-body p {
+    color: var(--ink-soft); margin-bottom: 1.2rem; line-height: 1.65;
+  }
+  .project-body ul { list-style: none; }
+  .project-body li {
+    padding: .5rem 0; padding-left: 1.4rem;
+    color: var(--ink-soft); position: relative; font-size: .95rem;
+  }
+  .project-body li::before {
+    content:"—"; position: absolute; left: 0; color: var(--red);
+  }
+
+  /* ──────────────────────────────────────────────────
+     VEILLE
+  ────────────────────────────────────────────────── */
+  .veille-wrap {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 900px){ .veille-wrap { grid-template-columns: 1fr; } }
+  .veille-wrap p {
+    color: var(--ink-soft); line-height: 1.65;
+  }
+  .topics { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .topic {
+    font-family: var(--f-mono); font-size: .78rem;
+    padding: .65rem 1.1rem;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: all .3s ease;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .topic::before {
+    content:"#"; color: var(--red);
+  }
+  .topic:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(255,44,44,.04);
+  }
+
+  /* ──────────────────────────────────────────────────
+     AMBITION (ROADMAP)
+  ────────────────────────────────────────────────── */
+  .roadmap {
+    position: relative;
+    padding: 3rem 0;
+  }
+  .roadmap-line {
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: repeating-linear-gradient(to right, var(--line) 0 8px, transparent 8px 14px);
+  }
+  .roadmap-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+  .roadmap-steps.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .step {
+    text-align: left;
+    position: relative;
+    padding-top: 4rem;
+  }
+  .step::before {
+    content:""; position: absolute;
+    top: 30px; left: 0;
+    width: 14px; height: 14px;
+    border: 2px solid var(--bg);
+    background: var(--red);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 2px var(--red);
+  }
+  .step.future::before {
+    background: var(--bg); box-shadow: 0 0 0 2px var(--ink-mute);
+  }
+  .step .yr {
+    font-family: var(--f-mono); font-size: .72rem;
+    color: var(--red); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .step.future .yr { color: var(--ink-mute); }
+  .step h4 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin-bottom: .5rem;
+    font-variation-settings: "SOFT" 60, "opsz" 144;
+  }
+  .step p {
+    font-size: .82rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  @media (max-width: 760px){
+    .roadmap-line { display:none; }
+    .roadmap-steps { grid-template-columns: 1fr; gap: 1rem; }
+    .step { padding-top: 0; padding-left: 2rem; }
+    .step::before { top: 6px; left: 0; }
+  }
+  .certs {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin-top: 3rem; padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .certs-label {
+    width: 100%;
+    font-family: var(--f-mono); font-size: .72rem;
+    text-transform: uppercase; letter-spacing: .2em;
+    color: var(--ink-mute);
+    margin-bottom: 1rem;
+  }
+  .cert {
+    font-family: var(--f-mono); font-size: .88rem;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: .6rem 1.2rem;
+    letter-spacing: .08em;
+  }
+
+  /* Transferable skills cards */
+  .transfer {
+    border: 1px solid var(--line);
+    padding: 1.6rem;
+    background: var(--bg);
+    transition: border-color .3s, background .3s, transform .3s;
+    position: relative;
+  }
+  .transfer:hover {
+    border-color: var(--red);
+    background: var(--bg-soft);
+    transform: translateY(-3px);
+  }
+  .transfer-icon {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--ink-mute);
+    margin-bottom: 1rem;
+    font-variation-settings: "SOFT" 100, "opsz" 144;
+    transition: color .3s;
+  }
+  .transfer:hover .transfer-icon { color: var(--red); }
+  .transfer-title {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    margin-bottom: .5rem;
+    line-height: 1.2;
+    font-variation-settings: "SOFT" 60, "opsz" 144;
+  }
+  .transfer-desc {
+    font-size: .85rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ──────────────────────────────────────────────────
+     CONTACT
+  ────────────────────────────────────────────────── */
+  #contact {
+    text-align: center;
+    padding-block: 8rem;
+  }
+  #contact h2 {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: .95;
+    letter-spacing: -.03em;
+    margin-bottom: 2rem;
+    font-variation-settings: "SOFT" 50, "opsz" 144;
+  }
+  #contact .accent { color: var(--red); }
+  .contact-email {
+    font-family: var(--f-mono);
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-mute);
+    padding-bottom: .3rem;
+    transition: border-color .3s, color .3s;
+    display: inline-block;
+  }
+  .contact-email:hover { color: var(--red); border-color: var(--red); }
+  .contact-meta {
+    margin-top: 3rem;
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+    font-family: var(--f-mono); font-size: .82rem;
+    color: var(--ink-soft);
+  }
+  .contact-meta a { color: var(--ink-soft); text-decoration: none; transition: color .3s; }
+  .contact-meta a:hover { color: var(--red); }
+
+  /* ──────────────────────────────────────────────────
+     FOOTER
+  ────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem var(--pad);
+    display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--f-mono); font-size: .68rem;
+    color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: .18em;
+  }
+
+  /* ──────────────────────────────────────────────────
+     REVEAL
+  ────────────────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1);
+  }
+  .reveal.in {
+    opacity: 1; transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* ──────────────────────────────────────────────────
+     SYNTHESIS TABLE (Tableau de synthèse E5)
+  ────────────────────────────────────────────────── */
+  .synth-doc {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,44,44,.015), transparent 30%);
+    margin-top: 2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+  .synth-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .synth-header > div {
+    padding: 1.4rem 1.6rem;
+    background: var(--bg);
+    font-family: var(--f-mono);
+  }
+  .synth-header .k {
+    font-size: .64rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: var(--ink-mute);
+    margin-bottom: .5rem;
+  }
+  .synth-header .v {
+    font-size: .92rem;
+    color: var(--ink);
+  }
+  @media (max-width: 760px) {
+    .synth-header { grid-template-columns: 1fr 1fr; }
+  }
+
+  .synth-group {
+    border-bottom: 1px solid var(--line);
+  }
+  .synth-group:last-child { border-bottom: none; }
+  .synth-group-title {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: var(--red);
+    padding: 1.6rem 1.6rem .8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+  }
+  .synth-group-title::after {
+    content:"";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--line), transparent);
+  }
+  .synth-table {
+    display: flex;
+    flex-direction: column;
+  }
+  .synth-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 160px repeat(6, 42px);
+    gap: 1rem;
+    padding: .95rem 1.6rem;
+    border-top: 1px solid var(--line);
+    align-items: center;
+    transition: background .25s ease;
+  }
+  .synth-row:hover { background: var(--bg-soft); }
+  .synth-head {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--line);
+  }
+  .synth-head:hover { background: var(--bg-soft); }
+  .synth-head > div {
+    font-family: var(--f-mono);
+    font-size: .64rem;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+  }
+  .c-name {
+    font-size: .94rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .c-date {
+    font-family: var(--f-mono);
+    font-size: .74rem;
+    color: var(--ink-soft);
+    letter-spacing: .04em;
+    text-align: right;
+  }
+  .c-block {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-mono);
+    font-size: .6rem;
+    color: var(--ink-mute);
+    margin-left: auto;
+    margin-right: auto;
+    transition: all .3s ease;
+    position: relative;
+  }
+  .c-block.on {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--bg);
+  }
+  .c-block.on::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border: 1px solid var(--red);
+    opacity: .25;
+  }
+  .synth-head .c-block {
+    border: none;
+    background: transparent;
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* Mobile collapse */
+  @media (max-width: 880px) {
+    .synth-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      padding: 1.2rem 1.4rem;
+    }
+    .synth-head { display: none; }
+    .c-date {
+      flex-basis: 100%;
+      text-align: left;
+      font-size: .68rem;
+      color: var(--ink-mute);
+      order: -1;
+    }
+    .c-name {
+      flex-basis: 100%;
+      order: 0;
+      font-size: 1rem;
+      margin-bottom: .4rem;
+    }
+    .c-block {
+      display: none;
+      width: auto;
+      height: auto;
+      padding: .3rem .6rem;
+      border: 1px solid var(--red);
+      color: var(--red);
+      margin: 0;
+      font-size: .65rem;
+      letter-spacing: .12em;
+      font-weight: 500;
+    }
+    .c-block.on { display: inline-flex; background: transparent; color: var(--red); }
+    .c-block.on::before { display: none; }
+    .c-block.on::after {
+      content: attr(data-label);
+    }
+  }
+
+  .synth-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    margin-top: 1.6rem;
+    padding-top: 1.6rem;
+    border-top: 1px dashed var(--line);
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    color: var(--ink-soft);
+  }
+  .synth-legend strong {
+    color: var(--red);
+    font-weight: 500;
+    margin-right: .4rem;
+  }
+
+  /* Expanded proof rows */
+  .synth-item {
+    border-top: 1px solid var(--line);
+    transition: background .25s ease;
+  }
+  .synth-item:hover { background: rgba(255,255,255,.012); }
+  .synth-item .synth-row { border-top: none; }
+  .synth-proof {
+    padding: 0 1.6rem 1.4rem;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.4rem;
+    align-items: start;
+  }
+  .synth-proof.solo {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
+  .synth-proof::before {
+    content: "";
+    grid-column: 1 / -1;
+    height: 1px;
+    background: linear-gradient(to right, var(--line), transparent);
+    margin-bottom: .4rem;
+  }
+  .synth-desc {
+    color: var(--ink-soft);
+    font-size: .88rem;
+    line-height: 1.6;
+    padding-left: 1.4rem;
+    border-left: 2px solid var(--red);
+  }
+  .synth-docs-label {
+    font-family: var(--f-mono);
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    color: var(--ink-mute);
+    margin-bottom: .7rem;
+  }
+  .synth-docs-list {
+    list-style: none;
+    font-size: .82rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .synth-docs-list li {
+    padding: .28rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .synth-docs-list li::before {
+    content: "›";
+    color: var(--red);
+    position: absolute;
+    left: 0;
+    font-family: var(--f-body);
+  }
+  .synth-docs-list a {
+    color: var(--red);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--red);
+    transition: opacity .2s;
+  }
+  .synth-docs-list a:hover { opacity: .75; }
+  .synth-docs-list .todo {
+    color: var(--ink-mute);
+    font-style: italic;
+    font-family: var(--f-mono);
+    font-size: .76rem;
+  }
+  @media (max-width: 880px) {
+    .synth-proof {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+      padding: 0 1.4rem 1.4rem;
+    }
+  }
+
+
+</style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">
+      <span class="dot"></span>
+      Adrien Robin / Portfolio
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about"><span>01</span> Profil</a></li>
+      <li><a href="#competences"><span>02</span> Compétences</a></li>
+      <li><a href="#formation"><span>03</span> Parcours</a></li>
+      <li><a href="#blocks"><span>04</span> Projets</a></li>
+      <li><a href="#synthese"><span>05</span> Synthèse</a></li>
+      <li><a href="#ambition"><span>06</span> Ambition</a></li>
+      <li><a href="#contact"><span>07</span> Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-tag">BTS SIO SISR — Alternance · SOLIHA Caen · 2024 → 2026</div>
+    <h1 class="hero-name">
+      <span class="word">Adrien</span> <span class="word">Robin</span>
+    </h1>
+    <div class="hero-meta">
+      <div>
+        <div class="k">Discipline</div>
+        <div class="v">Infrastructure & Réseaux</div>
+      </div>
+      <div>
+        <div class="k">Cap</div>
+        <div class="v">Assistant d'éducation</div>
+      </div>
+      <div>
+        <div class="k">Basé à</div>
+        <div class="v">Caen, Normandie · FR</div>
+      </div>
+    </div>
+    <p class="hero-statement">
+      Étudiant passionné par les technologies du numérique depuis le collège.
+      Deux ans d'alternance en infrastructure et réseaux m'ont appris la rigueur,
+      l'écoute et la transmission. Après le BTS, je choisis <em>une nouvelle direction</em> :
+      m'engager comme assistant d'éducation pour accompagner les élèves au quotidien.
+    </p>
+    <div class="scroll-cue">Défiler</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Infrastructure</span><span>Linux</span><span>Proxmox</span><span>SISR</span><span>Réseau</span><span>Support</span><span>Pédagogie</span><span>Transmission</span>
+      <span>Infrastructure</span><span>Linux</span><span>Proxmox</span><span>SISR</span><span>Réseau</span><span>Support</span><span>Pédagogie</span><span>Transmission</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label reveal">01 / Profil</div>
+    <h2 class="section-title reveal reveal-delay-1">Curieux,<br/>autonome,<br/><em style="color:var(--red);font-style:italic;">obstiné.</em></h2>
+
+    <div class="about-grid">
+      <div class="about-text reveal reveal-delay-2">
+        <p>
+          Je suis <em>Adrien Robin</em>, 21 ans, étudiant en <strong>BTS SIO option SISR</strong>
+          en alternance chez <strong>SOLIHA Caen</strong>. Après un BUT Informatique
+          et une Licence LLCER non poursuivis, j'ai recentré mon parcours sur ce qui
+          m'animait depuis le collège : comprendre comment les machines communiquent.
+        </p>
+        <p>
+          Mon quotidien d'alternant alterne entre <em>support utilisateurs</em>
+          (helpdesk téléphonique et terrain) et <em>projets d'infrastructure</em>
+          (virtualisation Proxmox, services réseau, déploiement). Ces deux ans m'ont
+          beaucoup appris sur l'écoute, l'accompagnement et la pédagogie au quotidien.
+          C'est cette dimension humaine que je veux désormais mettre au cœur de mon métier :
+          après le BTS, je me dirige vers <strong>l'assistance d'éducation</strong>.
+        </p>
+      </div>
+
+      <aside class="about-card reveal reveal-delay-3">
+        <h3>// Carte d'identité</h3>
+        <ul>
+          <li><span>Session</span><span>BTS 2026</span></li>
+          <li><span>N° candidat</span><span>02541516252</span></li>
+          <li><span>Centre</span><span>Caensup Saint-Ursule</span></li>
+          <li><span>Option</span><span style="color:var(--red);">SISR</span></li>
+          <li><span>Entreprise</span><span>SOLIHA · Caen</span></li>
+          <li><span>Période</span><span>2024 — 2026</span></li>
+          <li><span>Statut</span><span style="color:var(--green);">Alternance</span></li>
+          <li><span>Objectif</span><span>Assistant d'éducation</span></li>
+          <li><span>Langues</span><span>FR · EN · RU · AR</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- COMPETENCES -->
+  <section id="competences">
+    <div class="section-label reveal">02 / Compétences</div>
+    <h2 class="section-title reveal reveal-delay-1">Stack <em style="color:var(--red);font-style:italic;">technique.</em></h2>
+
+    <div class="skills-grid reveal reveal-delay-2">
+      <div class="skill-cell">
+        <div class="skill-num">/ 01</div>
+        <h3 class="skill-cat">Langages</h3>
+        <ul class="skill-list">
+          <li>C</li><li>C++</li><li>Python</li><li>C#</li><li>Ruby</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 02</div>
+        <h3 class="skill-cat">Systèmes</h3>
+        <ul class="skill-list">
+          <li>Linux (Debian, Ubuntu)</li>
+          <li>Windows (Client, Server)</li>
+          <li>Shell & Bash</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 03</div>
+        <h3 class="skill-cat">Réseaux</h3>
+        <ul class="skill-list">
+          <li>Cisco (CCNA-like)</li>
+          <li>Administration réseau</li>
+          <li>Dépannage & diagnostic</li>
+          <li>DNS / DHCP</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 04</div>
+        <h3 class="skill-cat">Virtualisation</h3>
+        <ul class="skill-list">
+          <li>Proxmox VE</li>
+          <li>Machines virtuelles</li>
+          <li>Conteneurs LXC</li>
+          <li>Serveur physique</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 05</div>
+        <h3 class="skill-cat">Support</h3>
+        <ul class="skill-list">
+          <li>Helpdesk N1 / N2</li>
+          <li>Ticketing</li>
+          <li>Assistance utilisateurs</li>
+          <li>Documentation</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 06</div>
+        <h3 class="skill-cat">Web</h3>
+        <ul class="skill-list">
+          <li>HTML5</li>
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>GitHub Pages</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 07</div>
+        <h3 class="skill-cat">Soft skills</h3>
+        <ul class="skill-list">
+          <li>Travail d'équipe</li>
+          <li>Autonomie</li>
+          <li>Curiosité</li>
+          <li>Rigueur</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-num">/ 08</div>
+        <h3 class="skill-cat">Langues</h3>
+        <ul class="skill-list">
+          <li>Français — natif</li>
+          <li>Anglais — courant</li>
+          <li>Russe — notions</li>
+          <li>Arabe — notions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <section id="formation">
+    <div class="section-label reveal">03 / Parcours</div>
+    <h2 class="section-title reveal reveal-delay-1">Chronologie<br/><em style="color:var(--red);font-style:italic;">d'apprentissages.</em></h2>
+
+    <div class="timeline">
+      <div class="timeline-item active reveal">
+        <div class="yr">2024 — 2026</div>
+        <div>
+          <h3>BTS SIO — option SISR</h3>
+          <div class="where">Alternance · SOLIHA Caen</div>
+          <p>Brevet de Technicien Supérieur Services Informatiques aux Organisations, parcours
+          Solutions d'Infrastructure, Systèmes et Réseaux. En alternance chez SOLIHA Caen :
+          support utilisateurs, virtualisation, déploiement de services réseau.</p>
+        </div>
+      </div>
+      <div class="timeline-item partial reveal">
+        <div class="yr">2023 — 2024</div>
+        <div>
+          <h3>Licence LLCER</h3>
+          <div class="where">Université de Caen · 1ʳᵉ année</div>
+          <p>Licence LLCER — Langues, Littératures et Civilisations Étrangères et Régionales
+          (anglais, russe, arabe). Première année engagée puis non poursuivie : réorientation
+          en fin d'année vers le BTS SIO SISR pour revenir à mon domaine d'origine,
+          l'informatique.</p>
+        </div>
+      </div>
+      <div class="timeline-item partial reveal">
+        <div class="yr">2022 — 2023</div>
+        <div>
+          <h3>BUT Informatique</h3>
+          <div class="where">IUT d'Ifs · 1ʳᵉ année</div>
+          <p>Première année de BUT Informatique : programmation, bases de données,
+          algorithmique. Non poursuivie — réorientation vers une formation linguistique
+          avant de revenir à l'informatique en BTS SIO SISR. Les fondations acquises
+          continuent de nourrir mes projets d'infrastructure aujourd'hui.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="yr">2020 — 2022</div>
+        <div>
+          <h3>Baccalauréat STI2D</h3>
+          <div class="where">Institut Lemonnier · Caen</div>
+          <p>Première et Terminale STI2D — Sciences et Technologies de l'Industrie et
+          du Développement Durable. Lycée privé professionnel, technologique et agricole.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="yr">2018 — 2019</div>
+        <div>
+          <h3>Seconde Générale</h3>
+          <div class="where">Lycée Jean Rostand · Caen</div>
+          <p>Seconde Générale et Technologique. Stage de découverte au sein d'Ouest France
+          (mars 2018, journalisme).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCKS BTS -->
+  <section id="blocks">
+    <div class="section-label reveal">04 / Référentiel BTS SIO SISR</div>
+
+    <div class="blocks-intro">
+      <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:0;">Six blocs,<br/><em style="color:var(--red);font-style:italic;">six preuves.</em></h2>
+      <p class="reveal reveal-delay-2">
+        Le référentiel BTS SIO SISR s'organise autour de six blocs de compétences.
+        Chacun est ici associé à une réalisation concrète menée en formation ou
+        en alternance — la pratique qui valide la théorie.
+      </p>
+    </div>
+
+    <div class="blocks-grid">
+      <article class="block reveal">
+        <div class="block-id">
+          <span>Bloc 01</span>
+          <span class="num">B1</span>
+        </div>
+        <h3>Gérer le patrimoine informatique</h3>
+        <p class="desc">Inventorier, structurer et valoriser les ressources numériques
+        — matérielles comme logicielles — en cohérence avec les besoins.</p>
+        <div class="proj">Projet associé<strong>Portfolio numérique en ligne</strong></div>
+      </article>
+
+      <article class="block reveal reveal-delay-1">
+        <div class="block-id">
+          <span>Bloc 02</span>
+          <span class="num">B2</span>
+        </div>
+        <h3>Répondre aux incidents et aux demandes</h3>
+        <p class="desc">Prendre en charge les sollicitations utilisateurs, qualifier
+        l'incident, documenter et résoudre, tracer dans le ticketing.</p>
+        <div class="proj">Projet associé<strong>Support utilisateurs · SOLIHA</strong></div>
+      </article>
+
+      <article class="block reveal reveal-delay-2">
+        <div class="block-id">
+          <span>Bloc 03</span>
+          <span class="num">B3</span>
+        </div>
+        <h3>Développer la présence en ligne</h3>
+        <p class="desc">Concevoir, produire et publier une présence numérique
+        professionnelle conforme aux standards web actuels.</p>
+        <div class="proj">Projet associé<strong>Portfolio HTML / CSS / JS</strong></div>
+      </article>
+
+      <article class="block reveal">
+        <div class="block-id">
+          <span>Bloc 04</span>
+          <span class="num">B4</span>
+        </div>
+        <h3>Travailler en mode projet</h3>
+        <p class="desc">Cadrer, planifier, mener et clôturer un projet technique
+        en respectant les contraintes de coût, qualité et délai.</p>
+        <div class="proj">Projet associé<strong>Déploiement serveur Proxmox VE</strong></div>
+      </article>
+
+      <article class="block reveal reveal-delay-1">
+        <div class="block-id">
+          <span>Bloc 05</span>
+          <span class="num">B5</span>
+        </div>
+        <h3>Mettre à disposition un service</h3>
+        <p class="desc">Installer, paramétrer, sécuriser et livrer un service
+        informatique exploitable par des utilisateurs réels.</p>
+        <div class="proj">Projet associé<strong>Services VM · DNS, DHCP, Web</strong></div>
+      </article>
+
+      <article class="block reveal reveal-delay-2">
+        <div class="block-id">
+          <span>Bloc 06</span>
+          <span class="num">B6</span>
+        </div>
+        <h3>Organiser son développement professionnel</h3>
+        <p class="desc">Maintenir ses compétences à jour, faire de la veille,
+        documenter ses pratiques, projeter sa carrière.</p>
+        <div class="proj">Projet associé<strong>MAJ logicielles + veille cybersécurité</strong></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SYNTHESIS TABLE -->
+  <section id="synthese">
+    <div class="section-label reveal">04.2 / Tableau de synthèse · E5</div>
+    <h2 class="section-title reveal reveal-delay-1">Document <em style="color:var(--red);font-style:italic;">officiel.</em></h2>
+
+    <p class="reveal reveal-delay-2" style="color:var(--ink-soft);max-width:680px;font-size:1.05rem;line-height:1.65;margin-bottom:2rem;">
+      Reproduction fidèle du tableau de synthèse des réalisations professionnelles présenté
+      à l'épreuve E5 du BTS SIO. Chaque réalisation est croisée avec les blocs de compétences
+      qu'elle mobilise — formation, première année, seconde année d'alternance.
+    </p>
+
+    <div class="synth-doc">
+      <header class="synth-header">
+        <div><div class="k">Session</div><div class="v">2026</div></div>
+        <div><div class="k">N° candidat</div><div class="v">02541516252</div></div>
+        <div><div class="k">Centre</div><div class="v">Caensup Saint-Ursule</div></div>
+        <div><div class="k">Option</div><div class="v" style="color:var(--red);">SISR</div></div>
+      </header>
+
+      <!-- ──────── Réalisations en cours de formation ──────── -->
+      <div class="synth-group">
+        <h3 class="synth-group-title">/ Réalisations en cours de formation</h3>
+
+        <div class="synth-row synth-head">
+          <div class="c-name">Réalisation</div>
+          <div class="c-date">Période</div>
+          <div class="c-block">B1</div><div class="c-block">B2</div><div class="c-block">B3</div>
+          <div class="c-block">B4</div><div class="c-block">B5</div><div class="c-block">B6</div>
+        </div>
+
+        <!-- 01 Proxmox -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création d'un serveur Proxmox sur serveur physique</div>
+            <div class="c-date">29/09/25 → 11/12/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block on" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof">
+            <p class="synth-desc">
+              Mise en place d'un hyperviseur <strong>Proxmox VE</strong> sur serveur physique
+              en salle, puis déploiement de machines virtuelles et conteneurs LXC pour héberger
+              les services réseau du contexte de projet (DNS, DHCP, web). Projet conduit du
+              cadrage à la mise en service.
+            </p>
+            <div>
+              <div class="synth-docs-label">// Documents et productions associés</div>
+              <ul class="synth-docs-list">
+                <li><a href="https://shinobudev.github.io/SISR/" target="_blank" rel="noopener">Portfolio documentaire — TD Proxmox</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 Portfolio -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création d'un portfolio numérique</div>
+            <div class="c-date">17/05/26</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block on" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block on" data-label="B6"></div>
+          </div>
+          <div class="synth-proof">
+            <p class="synth-desc">
+              Conception et développement de ce portfolio en HTML, CSS et JavaScript vanilla,
+              hébergé sur GitHub Pages. Vitrine éditoriale du parcours et des compétences
+              validant les blocs B1, B3 et B6.
+            </p>
+            <div>
+              <div class="synth-docs-label">// Documents et productions associés</div>
+              <ul class="synth-docs-list">
+                <li><a href="https://github.com/ShinobuDev" target="_blank" rel="noopener">Code source — GitHub ShinobuDev</a></li>
+                <li><a href="https://shinobudev.github.io" target="_blank" rel="noopener">Portfolio documentaire en ligne</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 SecNum -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Certification SecNumacadémique</div>
+            <div class="c-date">10/11/24</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block on" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Certification ANSSI / Cybermalveillance « SecNumacadémie » sur les fondamentaux
+              de la cybersécurité, suivie en autoformation dans le cadre de la veille
+              professionnelle.
+            </p>
+          </div>
+        </div>
+
+        <!-- 04 LDAP / GLPI -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Projet LDAP / GLPI</div>
+            <div class="c-date">22/04/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Mise en place d'un annuaire <strong>OpenLDAP</strong> couplé à une instance
+              <strong>GLPI</strong> pour la gestion centralisée des utilisateurs et du parc
+              informatique sur le contexte de projet GSB.
+            </p>
+          </div>
+        </div>
+
+        <!-- 05 DNS secondaire -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Projet DNS secondaire</div>
+            <div class="c-date">29/04/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Déploiement d'un serveur <strong>DNS secondaire</strong> en réplication d'un
+              DNS primaire pour assurer la haute disponibilité de la résolution de noms
+              sur le contexte de projet.
+            </p>
+          </div>
+        </div>
+
+        <!-- 06 GSB context -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création du contexte de projet GSB</div>
+            <div class="c-date">15/01/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block on" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Étude et rédaction du contexte de projet <strong>Galaxy Swiss Bourdin</strong>
+              (cas pédagogique de référence SIO/SISR) : périmètre fonctionnel, technique
+              et organisationnel sur lequel se sont greffées les réalisations suivantes.
+            </p>
+          </div>
+        </div>
+
+        <!-- 07 Sécurisation réseau -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Sécurisation d'un réseau</div>
+            <div class="c-date">23/01/25</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Audit et durcissement d'une infrastructure réseau de TP : segmentation
+              <strong>VLAN</strong>, listes de contrôle d'accès <strong>ACL</strong>,
+              sécurisation des accès administrateur, journalisation.
+            </p>
+          </div>
+        </div>
+
+        <!-- 08 RAID -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création de disque virtuel RAID</div>
+            <div class="c-date">23/02/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Mise en place de volumes <strong>RAID</strong> virtuels (RAID 0, 1, 5) sur
+              machine virtuelle pour appréhender la tolérance de panne et les performances
+              en lecture / écriture.
+            </p>
+          </div>
+        </div>
+
+        <!-- 09 MariaDB -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création d'une base de données avec MariaDB</div>
+            <div class="c-date">27/02/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block on" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Modélisation, création et peuplement d'une base de données <strong>MariaDB</strong>
+              pour un cas d'usage métier sur le contexte GSB. Travail mené du MCD aux requêtes.
+            </p>
+          </div>
+        </div>
+
+        <!-- 10 Template Linux -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Création de template Linux pour le contexte de projet</div>
+            <div class="c-date">08/01/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Construction d'un template Linux standardisé (Debian/Ubuntu) destiné à être cloné
+              pour toutes les VM du contexte GSB : paquets, comptes, sécurité de base, outils
+              d'administration.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────── 1ère année SOLIHA ──────── -->
+      <div class="synth-group">
+        <h3 class="synth-group-title">/ Réalisations en milieu professionnel · 1ère année — SOLIHA</h3>
+
+        <div class="synth-row synth-head">
+          <div class="c-name">Réalisation</div>
+          <div class="c-date">Période</div>
+          <div class="c-block">B1</div><div class="c-block">B2</div><div class="c-block">B3</div>
+          <div class="c-block">B4</div><div class="c-block">B5</div><div class="c-block">B6</div>
+        </div>
+
+        <!-- 11 Support téléphone -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Support utilisateurs — assistance téléphonique</div>
+            <div class="c-date">En continu</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Prise en charge quotidienne des appels entrants utilisateurs SOLIHA :
+              qualification de l'incident, assistance niveau 1, escalade si nécessaire,
+              traçabilité dans l'outil de ticketing.
+            </p>
+          </div>
+        </div>
+
+        <!-- 12 Autoformation -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Autoformation</div>
+            <div class="c-date">En continu</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block on" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Veille personnelle et autoformation continue sur les outils, technologies
+              et bonnes pratiques rencontrés en alternance et en formation.
+            </p>
+          </div>
+        </div>
+
+        <!-- 13 Formation veille -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Formation des employés à la veille informatique</div>
+            <div class="c-date">17/09/24</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block on" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Conception et animation d'une session de sensibilisation des collaborateurs
+              SOLIHA aux bonnes pratiques de veille informatique : sources fiables,
+              vérification, hygiène numérique.
+            </p>
+          </div>
+        </div>
+
+        <!-- 14 Inventaire -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Inventaire informatique de l'entreprise</div>
+            <div class="c-date">27/11/24</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Réalisation d'un inventaire exhaustif du parc informatique SOLIHA :
+              postes, périphériques, licences, comptes utilisateurs. Base pour le
+              renouvellement et le suivi.
+            </p>
+          </div>
+        </div>
+
+        <!-- 15 Maintenance Y1 -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Maintenance du matériel informatique</div>
+            <div class="c-date">En continu</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block on" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Interventions régulières de maintenance préventive et curative sur le parc
+              SOLIHA : nettoyage, remplacements, mises à jour, dépannage des postes
+              et périphériques.
+            </p>
+          </div>
+        </div>
+
+        <!-- 16 Formation Excel -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Formation de l'équipe à Excel</div>
+            <div class="c-date">17/03/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Animation d'une session interne de montée en compétence Excel pour l'équipe
+              SOLIHA : formules, tableaux croisés dynamiques, mise en forme conditionnelle.
+            </p>
+          </div>
+        </div>
+
+        <!-- 17 Soutien sous-traitants -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Soutien informatique avec les sous-traitants réseau</div>
+            <div class="c-date">08/04/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Accompagnement et coordination avec les prestataires externes lors
+              d'interventions sur l'infrastructure réseau de SOLIHA : préparation,
+              suivi de chantier, recette.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────── 2ème année SOLIHA ──────── -->
+      <div class="synth-group">
+        <h3 class="synth-group-title">/ Réalisations en milieu professionnel · 2ème année — SOLIHA</h3>
+
+        <div class="synth-row synth-head">
+          <div class="c-name">Réalisation</div>
+          <div class="c-date">Période</div>
+          <div class="c-block">B1</div><div class="c-block">B2</div><div class="c-block">B3</div>
+          <div class="c-block">B4</div><div class="c-block">B5</div><div class="c-block">B6</div>
+        </div>
+
+        <!-- 18 RA-PRO -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Projet de rapprochement bancaire — RA-PRO</div>
+            <div class="c-date">17/01/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block on" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block on" data-label="B6"></div>
+          </div>
+          <div class="synth-proof">
+            <p class="synth-desc">
+              Conception, développement et déploiement d'un logiciel sur mesure de
+              <strong>rapprochement bancaire</strong> pour SOLIHA. Python 3.11, interface
+              graphique Tkinter, packagé en exécutable Windows pour un déploiement
+              sans dépendance.
+            </p>
+            <div>
+              <div class="synth-docs-label">// Documents et productions associés</div>
+              <ul class="synth-docs-list">
+                <li><a href="https://github.com/ShinobuDev/RA-PRO" target="_blank" rel="noopener">Code source ouvert — GitHub ShinobuDev/RA-PRO</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 Maintenance Y2 -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Maintenance du matériel informatique</div>
+            <div class="c-date">En continu</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Poursuite des interventions de maintenance préventive et curative, avec
+              montée en autonomie et délégation progressive sur les diagnostics plus
+              complexes.
+            </p>
+          </div>
+        </div>
+
+        <!-- 20 Renouvellement -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Renouvellement des logiciels et du matériel informatique</div>
+            <div class="c-date">En continu</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Pilotage du renouvellement progressif du parc informatique et logiciel
+              de SOLIHA : étude des besoins, choix, commande, mise en service,
+              accompagnement des utilisateurs.
+            </p>
+          </div>
+        </div>
+
+        <!-- 21 Câblage -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Câblage du réseau local de l'entreprise</div>
+            <div class="c-date">20/11/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Réorganisation et extension du câblage Ethernet du réseau local SOLIHA :
+              tirage, repérage, raccordement aux baies, tests de continuité.
+            </p>
+          </div>
+        </div>
+
+        <!-- 22 Saisie Excel -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Saisie de données sur Excel</div>
+            <div class="c-date">18/12/25</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Mission de saisie et de structuration de données métier sur Excel pour
+              SOLIHA, avec mise en place de tableaux croisés et de contrôles de cohérence.
+            </p>
+          </div>
+        </div>
+
+        <!-- 23 Mots de passe -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Gestion de la sécurité des mots de passe en entreprise</div>
+            <div class="c-date">08/04/26</div>
+            <div class="c-block" data-label="B1"></div>
+            <div class="c-block" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block" data-label="B4"></div>
+            <div class="c-block" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Mise en place d'une politique et de bonnes pratiques de gestion des mots
+              de passe au sein de SOLIHA : règles de complexité, renouvellement,
+              stockage sécurisé, sensibilisation.
+            </p>
+          </div>
+        </div>
+
+        <!-- 24 Logiciel parc auto -->
+        <div class="synth-item">
+          <div class="synth-row">
+            <div class="c-name">Mise en place d'un logiciel de gestion de parc automobile</div>
+            <div class="c-date">16/04/26</div>
+            <div class="c-block on" data-label="B1"></div>
+            <div class="c-block on" data-label="B2"></div>
+            <div class="c-block" data-label="B3"></div>
+            <div class="c-block on" data-label="B4"></div>
+            <div class="c-block on" data-label="B5"></div>
+            <div class="c-block" data-label="B6"></div>
+          </div>
+          <div class="synth-proof solo">
+            <p class="synth-desc">
+              Cadrage, choix, déploiement et accompagnement à la prise en main d'un
+              logiciel de gestion du parc automobile pour SOLIHA. Projet conduit du
+              recueil du besoin jusqu'à la formation des utilisateurs finaux.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="synth-legend reveal" style="padding-inline:0;">
+      <div><strong>B1</strong> Gérer le patrimoine</div>
+      <div><strong>B2</strong> Répondre aux incidents</div>
+      <div><strong>B3</strong> Présence en ligne</div>
+      <div><strong>B4</strong> Mode projet</div>
+      <div><strong>B5</strong> Mettre à disposition un service</div>
+      <div><strong>B6</strong> Développement professionnel</div>
+    </div>
+  </section>
+
+  <!-- PROJETS DETAIL -->
+  <section id="projets">
+    <div class="section-label reveal">04.3 / Projets en détail</div>
+    <h2 class="section-title reveal reveal-delay-1">Quatre<br/><em style="color:var(--red);font-style:italic;">réalisations.</em></h2>
+
+    <div class="projects-detail">
+
+      <!-- Projet RA-PRO -->
+      <article class="project reveal">
+        <div class="project-meta">
+          <div class="tag">B3 + B4 + B6 · Logiciel métier</div>
+          <h3>RA-PRO</h3>
+          <p style="color:var(--ink-soft);">Logiciel de rapprochement bancaire conçu et
+          développé pour <strong style="color:var(--ink);font-weight:400;">SOLIHA Caen</strong>.
+          Outil open-source en Python avec interface graphique, packagé en exécutable
+          Windows pour un déploiement sans dépendance.</p>
+          <div class="stack">
+            <span>Python 3.11</span><span>Tkinter</span><span>Pandas</span>
+            <span>PyInstaller</span><span>Git</span>
+          </div>
+          <a href="https://github.com/ShinobuDev/RA-PRO" target="_blank" rel="noopener" style="display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:.3rem;">
+            Repo GitHub →
+          </a>
+        </div>
+        <div class="project-body">
+          <p>Projet personnel mené pour répondre à un besoin réel de l'entreprise :
+          automatiser le rapprochement entre les écritures bancaires et la comptabilité interne.
+          Pensé pour être simple à installer, à configurer, et utilisable par un non-développeur.</p>
+          <ul>
+            <li>Analyse du besoin métier avec l'équipe comptable de SOLIHA</li>
+            <li>Conception d'une CLI puis d'une interface graphique avec Tkinter</li>
+            <li>Traitement de fichiers Excel / CSV via Pandas</li>
+            <li>Génération automatique d'un fichier de résultat dans le dossier source</li>
+            <li>Packaging en <code>.exe</code> avec PyInstaller — déploiement sans Python</li>
+            <li>Code publié en open-source sur GitHub avec README, SECURITY et roadmap</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Projet Proxmox -->
+      <article class="project reveal">
+        <div class="project-meta">
+          <div class="tag">B4 + B5 · Infrastructure</div>
+          <h3>Serveur Proxmox</h3>
+          <p style="color:var(--ink-soft);">Installation d'un hyperviseur Proxmox VE
+          sur serveur physique, puis déploiement d'une infrastructure virtuelle complète
+          fournissant DNS, DHCP et un service web interne.</p>
+          <div class="stack">
+            <span>Proxmox VE</span><span>Linux</span><span>DNS</span>
+            <span>DHCP</span><span>VM</span><span>LXC</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <p>Projet conduit du cadrage à la mise en service. Conception de l'architecture
+          virtuelle, séparation des rôles par machine, supervision et documentation.</p>
+          <ul>
+            <li>Installation de Proxmox VE sur matériel physique dédié</li>
+            <li>Création et configuration de machines virtuelles et conteneurs LXC</li>
+            <li>Déploiement d'un service DNS pour la résolution interne</li>
+            <li>Mise en place d'un serveur DHCP pour la distribution d'adresses</li>
+            <li>Hébergement d'un service web sur la même infrastructure</li>
+            <li>Rédaction d'une documentation d'exploitation</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Projet Support -->
+      <article class="project reveal">
+        <div class="project-meta">
+          <div class="tag">B2 · Production</div>
+          <h3>Support SOLIHA</h3>
+          <p style="color:var(--ink-soft);">Helpdesk en alternance chez SOLIHA Caen :
+          prise en charge des incidents utilisateurs, assistance téléphonique et terrain,
+          traçabilité via outil de ticketing.</p>
+          <div class="stack">
+            <span>Helpdesk</span><span>Ticketing</span>
+            <span>Windows</span><span>Dépannage</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <p>Au quotidien : qualifier les demandes, prioriser, diagnostiquer, résoudre.
+          L'enjeu : restaurer rapidement le service tout en documentant chaque
+          incident pour nourrir la base de connaissances.</p>
+          <ul>
+            <li>Réception et qualification des incidents utilisateurs</li>
+            <li>Assistance téléphonique de niveau 1</li>
+            <li>Interventions sur poste — Windows, périphériques, réseau</li>
+            <li>Suivi et clôture des tickets dans l'outil de gestion</li>
+            <li>Communication directe avec les utilisateurs finaux</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Projet Portfolio -->
+      <article class="project reveal">
+        <div class="project-meta">
+          <div class="tag">B1 + B3 · Web</div>
+          <h3>Ce portfolio</h3>
+          <p style="color:var(--ink-soft);">Site personnel conçu et développé en
+          HTML, CSS et JavaScript vanilla, hébergé sur GitHub Pages.
+          Vitrine éditoriale du parcours et des compétences validées en BTS SIO SISR.</p>
+          <div class="stack">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+            <span>Git</span><span>GitHub Pages</span>
+          </div>
+          <a href="https://shinobudev.github.io" target="_blank" rel="noopener" style="display:inline-block;margin-top:1.4rem;font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:.3rem;">
+            Portfolio documentaire →
+          </a>
+        </div>
+        <div class="project-body">
+          <p>Pensé comme un objet éditorial autant que technique : typographie soignée,
+          animations sobres, structure sémantique, performances et accessibilité.
+          En complément, un portfolio documentaire séparé
+          (<code>shinobudev.github.io</code>) rassemble les TD, TP et productions de formation
+          — Proxmox, Apache2, Docker, DNS, switches Cisco.</p>
+          <ul>
+            <li>Direction artistique éditoriale, palette dark warm-black</li>
+            <li>Typographie : Fraunces (display), JetBrains Mono (technique), Manrope (corps)</li>
+            <li>Animations CSS et IntersectionObserver pour les apparitions</li>
+            <li>Curseur custom, grain SVG, marquee, accessibilité réduite par <code>prefers-reduced-motion</code></li>
+            <li>Déploiement continu via Git push sur GitHub Pages</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- VEILLE -->
+  <section id="veille">
+    <div class="section-label reveal">05 / Veille technologique</div>
+    <h2 class="section-title reveal reveal-delay-1">Sur quoi <em style="color:var(--red);font-style:italic;">je veille.</em></h2>
+
+    <div class="veille-wrap">
+      <p class="reveal reveal-delay-2">
+        Ma veille menée durant le BTS tourne autour d'un axe : la
+        <strong style="color:var(--red);">cybersécurité</strong>.
+        Lectures de write-ups, suivi de l'actualité des CVE majeures, observation
+        de l'évolution des réglementations et des techniques d'attaque comme de défense.
+      </p>
+      <div class="reveal reveal-delay-3">
+        <div class="topics">
+          <span class="topic">Pentesting</span>
+          <span class="topic">Red Team</span>
+          <span class="topic">IA & Sécurité</span>
+          <span class="topic">RGPD</span>
+          <span class="topic">NIS2</span>
+          <span class="topic">Ransomwares</span>
+          <span class="topic">Zero Trust</span>
+          <span class="topic">CVE / 0-day</span>
+          <span class="topic">OSINT</span>
+          <span class="topic">Active Directory</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMBITION -->
+  <section id="ambition">
+    <div class="section-label reveal">06 / Projet professionnel</div>
+    <h2 class="section-title reveal reveal-delay-1">Nouvelle <em style="color:var(--red);font-style:italic;">direction.</em></h2>
+
+    <p class="reveal reveal-delay-2" style="color:var(--ink-soft);max-width:720px;font-size:1.1rem;line-height:1.65;margin-bottom:1.4rem;">
+      Le BTS SIO SISR m'a appris bien plus que la technique : la rigueur du diagnostic,
+      l'écoute des utilisateurs, la pédagogie nécessaire pour accompagner quelqu'un face à
+      un problème qu'il ne maîtrise pas. C'est cette dimension humaine que je veux mettre
+      au centre de la suite.
+    </p>
+    <p class="reveal reveal-delay-2" style="color:var(--ink-soft);max-width:720px;font-size:1.1rem;line-height:1.65;margin-bottom:3rem;">
+      Mon projet, après l'obtention du BTS, est de devenir
+      <strong style="color:var(--red);font-weight:400;">assistant d'éducation</strong>
+      en collège ou en lycée — accompagner les élèves au quotidien, contribuer au cadre
+      éducatif, et continuer à apprendre dans un cadre différent.
+    </p>
+
+    <div class="roadmap reveal reveal-delay-3">
+      <div class="roadmap-line"></div>
+      <div class="roadmap-steps three">
+        <div class="step">
+          <div class="yr">2024 — 2026</div>
+          <h4>BTS SIO SISR</h4>
+          <p>Deux ans d'alternance chez SOLIHA : infrastructure, support, réseau, virtualisation.</p>
+        </div>
+        <div class="step future">
+          <div class="yr">Été 2026</div>
+          <h4>Validation du BTS</h4>
+          <p>Obtention du diplôme et candidatures académiques pour un poste d'AED.</p>
+        </div>
+        <div class="step future">
+          <div class="yr">Rentrée 2026 +</div>
+          <h4>Assistant d'éducation</h4>
+          <p>Prise de poste en établissement scolaire — encadrement, accompagnement, suivi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="certs reveal" style="border-top:1px solid var(--line);margin-top:3rem;padding-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem;">
+      <div style="grid-column:1/-1;font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:var(--ink-mute);">
+        // Compétences transférables vers l'éducation
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">01</div>
+        <div class="transfer-title">Écoute & pédagogie</div>
+        <div class="transfer-desc">Deux ans à expliquer la technique à des utilisateurs non-techniques.</div>
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">02</div>
+        <div class="transfer-title">Cadre & rigueur</div>
+        <div class="transfer-desc">Tickets, procédures, traçabilité — un sens du cadre exigeant.</div>
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">03</div>
+        <div class="transfer-title">Autonomie</div>
+        <div class="transfer-desc">Capacité à conduire un projet de A à Z, du cadrage à la livraison.</div>
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">04</div>
+        <div class="transfer-title">Esprit d'équipe</div>
+        <div class="transfer-desc">Travail au quotidien avec une équipe et des sous-traitants.</div>
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">05</div>
+        <div class="transfer-title">Sens du service</div>
+        <div class="transfer-desc">Helpdesk : être disponible, ne pas juger, résoudre.</div>
+      </div>
+      <div class="transfer">
+        <div class="transfer-icon">06</div>
+        <div class="transfer-title">Curiosité</div>
+        <div class="transfer-desc">Apprendre vite, accepter de ne pas savoir, chercher.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal" style="justify-content:center;">07 / Échangeons</div>
+    <h2 class="reveal reveal-delay-1">
+      Un projet, une mission,<br/>une <span class="accent" style="font-style:italic;">conversation.</span>
+    </h2>
+    <a href="mailto:adrien.robin0704@gmail.com" class="contact-email reveal reveal-delay-2">
+      adrien.robin0704@gmail.com
+    </a>
+    <div class="contact-meta reveal reveal-delay-3">
+      <a href="tel:+33670582038">+33 6 70 58 20 38</a>
+      <span>Caen · Normandie · France</span>
+      <a href="https://github.com/ShinobuDev" target="_blank" rel="noopener" id="github-link">github.com/ShinobuDev</a>
+      <a href="https://shinobudev.github.io" target="_blank" rel="noopener">shinobudev.github.io</a>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 Adrien Robin · BTS SIO SISR</div>
+    <div>Conçu & développé à Caen · v1.0</div>
+  </footer>
+
+  <script>
+    /* ────────── CURSOR ────────── */
+    const cursor = document.querySelector('.cursor');
+    const ring   = document.querySelector('.cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+    });
+    function animateRing(){
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .skill-cell, .block, .topic, .timeline-item, .project')
+      .forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('is-hovering'));
+      });
+
+    /* ────────── NAV SHADOW ON SCROLL ────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    /* ────────── REVEAL ON SCROLL ────────── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ────────── GITHUB LINK ────────── */
+    // Lien GitHub fixé directement dans le HTML : https://github.com/ShinobuDev
+  </script>
+
+</body>
+</html>
